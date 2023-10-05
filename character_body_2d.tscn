@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://clm5uawjndpcl"]
+
+[ext_resource type="Script" path="res://Assets/Player/CharacterBody2D.cs" id="1_v7v8l"]
+
+[node name="CharacterBody2D" type="CharacterBody2D"]
+script = ExtResource("1_v7v8l")
