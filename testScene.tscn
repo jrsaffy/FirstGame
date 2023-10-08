@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://dgdttba06tc26"]
+
+[ext_resource type="Script" path="res://Assets/Player/Player.cs" id="1_1nrfs"]
+[ext_resource type="Texture2D" uid="uid://vnsmfjsulpod" path="res://Assets/Sprites/background.PNG" id="1_f0haj"]
+[ext_resource type="Texture2D" uid="uid://omfbgbwy5pbs" path="res://Assets/Player/Sprites/Hero_Rifle/Hero_Rifle.png" id="2_18t4s"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ec1qx"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_left = -281.0
+offset_top = -255.0
+offset_right = 420.0
+offset_bottom = 439.0
+texture = ExtResource("1_f0haj")
+
+[node name="Player" type="CharacterBody2D" parent="."]
+position = Vector2(50, 50)
+script = ExtResource("1_1nrfs")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+shape = SubResource("RectangleShape2D_ec1qx")
+
+[node name="Sprite2D" type="Sprite2D" parent="Player"]
+rotation = 4.71239
+texture = ExtResource("2_18t4s")
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
