@@ -6,6 +6,7 @@ public partial class Player : Godot.CharacterBody2D
 	bool moving = false;
 	public int speed = 200;
 
+
 	void _Move(Vector2 direction)
 	{   
 		Velocity = speed * direction;
@@ -14,12 +15,13 @@ public partial class Player : Godot.CharacterBody2D
 		{
 			moving = true;
 			MoveAndSlide();
-			
+			GetNode<AnimatedSprite2D>("Legs").Play();
 		}
 
 		else
 		{
 			moving = false;
+			GetNode<AnimatedSprite2D>("Legs").Stop();
 		}
 
 		
@@ -41,7 +43,7 @@ public partial class Player : Godot.CharacterBody2D
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-
+		
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
