@@ -1,0 +1,71 @@
+[gd_scene load_steps=13 format=3 uid="uid://dgdttba06tc26"]
+
+[ext_resource type="Script" path="res://Assets/Player/Player.cs" id="1_1nrfs"]
+[ext_resource type="Texture2D" uid="uid://vnsmfjsulpod" path="res://Assets/Sprites/background.PNG" id="1_f0haj"]
+[ext_resource type="Texture2D" uid="uid://omfbgbwy5pbs" path="res://Assets/Player/Sprites/Hero_Rifle/Hero_Rifle.png" id="2_18t4s"]
+[ext_resource type="Texture2D" uid="uid://cakvsskqe3ep8" path="res://Assets/Player/Sprites/Hero_Walk/With Kneepads/1.png" id="4_2jdna"]
+[ext_resource type="Texture2D" uid="uid://djl2272nbt73j" path="res://Assets/Player/Sprites/Hero_Walk/With Kneepads/2.png" id="5_fxerg"]
+[ext_resource type="Texture2D" uid="uid://djaqd5ur08428" path="res://Assets/Player/Sprites/Hero_Walk/With Kneepads/3.png" id="6_xu2xa"]
+[ext_resource type="Texture2D" uid="uid://co5wytj3t4n4a" path="res://Assets/Player/Sprites/Hero_Walk/With Kneepads/4.png" id="7_xh0aw"]
+[ext_resource type="Texture2D" uid="uid://2jbxouyo0ttc" path="res://Assets/Player/Sprites/Hero_Walk/With Kneepads/5.png" id="8_aq3lq"]
+[ext_resource type="Texture2D" uid="uid://bxyrqj5x5pt7a" path="res://Assets/Player/Sprites/Hero_Walk/With Kneepads/6.png" id="9_vfxll"]
+[ext_resource type="Texture2D" uid="uid://bfjnv4pbpweqt" path="res://Assets/Player/Sprites/Hero_Walk/With Kneepads/7.png" id="10_hj47v"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_xu5h6"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("10_hj47v")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_2jdna")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_fxerg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_xu2xa")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_xh0aw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_aq3lq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_vfxll")
+}],
+"loop": true,
+"name": &"default",
+"speed": 15.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ec1qx"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_left = -281.0
+offset_top = -255.0
+offset_right = 420.0
+offset_bottom = 439.0
+texture = ExtResource("1_f0haj")
+
+[node name="Player" type="CharacterBody2D" parent="."]
+position = Vector2(50, 50)
+script = ExtResource("1_1nrfs")
+
+[node name="Legs" type="AnimatedSprite2D" parent="Player"]
+rotation = -1.5708
+sprite_frames = SubResource("SpriteFrames_xu5h6")
+frame_progress = 0.287337
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+shape = SubResource("RectangleShape2D_ec1qx")
+
+[node name="Head" type="Sprite2D" parent="Player"]
+rotation = 4.71239
+texture = ExtResource("2_18t4s")
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+zoom = Vector2(1.5, 1.5)
