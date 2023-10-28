@@ -4,7 +4,7 @@ using System;
 public partial class Bullet : Area2D
 {
 
-	int speed = 500;
+	int speed = 750;
 	public Vector2 init_position = new Vector2(0,0);
 	public Vector2 direction;
 

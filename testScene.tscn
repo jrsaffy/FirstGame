@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://dgdttba06tc26"]
+[gd_scene load_steps=15 format=3 uid="uid://dgdttba06tc26"]
 
 [ext_resource type="Script" path="res://Assets/Player/Player.cs" id="1_1nrfs"]
 [ext_resource type="Texture2D" uid="uid://vnsmfjsulpod" path="res://Assets/Sprites/background.PNG" id="1_f0haj"]
@@ -10,6 +10,8 @@
 [ext_resource type="Texture2D" uid="uid://2jbxouyo0ttc" path="res://Assets/Player/Sprites/Hero_Walk/With Kneepads/5.png" id="8_aq3lq"]
 [ext_resource type="Texture2D" uid="uid://bxyrqj5x5pt7a" path="res://Assets/Player/Sprites/Hero_Walk/With Kneepads/6.png" id="9_vfxll"]
 [ext_resource type="Texture2D" uid="uid://bfjnv4pbpweqt" path="res://Assets/Player/Sprites/Hero_Walk/With Kneepads/7.png" id="10_hj47v"]
+[ext_resource type="Script" path="res://Assets/CollisionDummy.cs" id="11_5lloo"]
+[ext_resource type="Texture2D" uid="uid://d2p7nw2akcwsk" path="res://Assets/Sprites/craftpix-000123-tds-modern-pixel-game-kit/tds-modern-soldiers-and-vehicles-sprites-2/Gunner/Gunner.png" id="11_ahjpq"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_xu5h6"]
 animations = [{
@@ -69,3 +71,13 @@ texture = ExtResource("2_18t4s")
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 zoom = Vector2(1.5, 1.5)
+
+[node name="Dummy" type="Area2D" parent="."]
+script = ExtResource("11_5lloo")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Dummy"]
+shape = SubResource("RectangleShape2D_ec1qx")
+
+[node name="Head" type="Sprite2D" parent="Dummy"]
+rotation = -1.5708
+texture = ExtResource("11_ahjpq")

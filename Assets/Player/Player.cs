@@ -39,7 +39,7 @@ public partial class Player : Godot.CharacterBody2D
 			GD.Print("ass");
 			Bullet bullet = (Bullet)bullet_loader.Instantiate();
 			bullet.direction = direction;
-			bullet.init_position = Position;
+			bullet.init_position = Position + direction * 15;
 			GetParent().AddChild(bullet);
 		}
 
