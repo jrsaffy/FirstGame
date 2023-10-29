@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Diagnostics;
 
 public partial class Player : Godot.CharacterBody2D
 {
@@ -8,7 +9,9 @@ public partial class Player : Godot.CharacterBody2D
 	State playerState = new State();
 	PackedScene bullet_loader = GD.Load<PackedScene>("res://Assets/bullet.tscn");
 	int health = 100;
-
+	bool can_fire = true;
+	Gun gun = new Gun(15.0f, 30, 25);
+	System.Diagnostics.Stopwatch gunStopwatch = new System.Diagnostics.Stopwatch();
 
 	void _Move(Vector2 direction)
 	{   
@@ -30,16 +33,41 @@ public partial class Player : Godot.CharacterBody2D
 		
 	}
 
+	void setSprint()
+	{
+		if(Input.IsActionPressed("Shift"))
+		{
+			// speed = Convert.ToInt32(speed * 1.5f);
+			speed = 300;
+		}
+		else
+		{
+			speed = 200;
+		}
+
+	}
+
 	void shoot(Vector2 direction)
 	{
-		if (Input.IsActionJustPressed("left_click"))
+		if (Input.IsActionPressed("left_click") & can_fire)
 		{
+			gunStopwatch.Start();
 			GD.Print("ass");
 			Bullet bullet = (Bullet)bullet_loader.Instantiate();
+			// Bullet bullet = new Bullet(Position + direction * 25, direction, gun.damage);
 			bullet.direction = direction;
-			bullet.init_position = Position + direction * 20;
+			bullet.init_position = Position + direction * 25;
+			bullet.LookAt(direction * 50);
 			GetParent().AddChild(bullet);
+			can_fire = false;
+			
 		}
+		if (gunStopwatch.ElapsedMilliseconds > (1000 / gun.firerateRoundsPerSecond))
+		{
+			gunStopwatch.Reset();
+			can_fire = true;
+		}
+		GD.Print(gunStopwatch.ElapsedMilliseconds);
 
 	}
 	
@@ -68,7 +96,9 @@ public partial class Player : Godot.CharacterBody2D
 		// GD.Print(Position);
 		LookAt(GetGlobalMousePosition());
 		Vector2 direction = _GetMovementDirection();
+		setSprint();
 		_Move(direction);
 		shoot((GetGlobalMousePosition() - Position).Normalized());
+		
 	}
 }

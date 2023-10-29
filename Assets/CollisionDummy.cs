@@ -2,7 +2,7 @@ using Godot;
 using System;
 using Godot.Collections;
 
-public partial class  CollisionDummy: Godot.Area2D
+public partial class  CollisionDummy: Area2D
 {
 
 	PackedScene bullet_loader = GD.Load<PackedScene>("res://Assets/bullet.tscn");
@@ -32,7 +32,7 @@ public partial class  CollisionDummy: Godot.Area2D
 		{
 			Area2D area = overlappingAreas[i];
 			area.QueueFree();
-			test();
+			// test();
 
 		}
 	}
