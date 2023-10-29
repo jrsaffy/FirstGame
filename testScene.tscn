@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://dgdttba06tc26"]
+[gd_scene load_steps=18 format=3 uid="uid://dgdttba06tc26"]
 
 [ext_resource type="Script" path="res://Assets/Player/Player.cs" id="1_1nrfs"]
 [ext_resource type="Texture2D" uid="uid://vnsmfjsulpod" path="res://Assets/Sprites/background.PNG" id="1_f0haj"]
@@ -12,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://bfjnv4pbpweqt" path="res://Assets/Player/Sprites/Hero_Walk/With Kneepads/7.png" id="10_hj47v"]
 [ext_resource type="Script" path="res://Assets/CollisionDummy.cs" id="11_5lloo"]
 [ext_resource type="Texture2D" uid="uid://d2p7nw2akcwsk" path="res://Assets/Sprites/craftpix-000123-tds-modern-pixel-game-kit/tds-modern-soldiers-and-vehicles-sprites-2/Gunner/Gunner.png" id="11_ahjpq"]
+[ext_resource type="Texture2D" uid="uid://ckjgsv24ln2wf" path="res://Assets/Sprites/craftpix-000123-tds-modern-pixel-game-kit/tds-modern-tilesets-environment/PNG/House/House.png" id="13_pritk"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_xu5h6"]
 animations = [{
@@ -43,6 +44,50 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ec1qx"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6x2nv"]
+texture = ExtResource("13_pritk")
+texture_region_size = Vector2i(34, 34)
+0:0/0 = 0
+0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_0/angular_velocity = 0.0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-17, -17, 17, -17, 17, 17, -17, 17)
+1:0/0 = 0
+1:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+1:0/0/physics_layer_0/angular_velocity = 0.0
+1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-17, -17, 17, -17, 17, 17, -17, 17)
+2:0/0 = 0
+2:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+2:0/0/physics_layer_0/angular_velocity = 0.0
+2:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-17, -17, 17, -17, 17, 17, -17, 17)
+0:1/0 = 0
+0:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:1/0/physics_layer_0/angular_velocity = 0.0
+0:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-17, -17, 17, -17, 17, 17, -17, 17)
+1:1/0 = 0
+1:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+1:1/0/physics_layer_0/angular_velocity = 0.0
+2:1/0 = 0
+2:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+2:1/0/physics_layer_0/angular_velocity = 0.0
+2:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-17, -17, 17, -17, 17, 17, -17, 17)
+0:2/0 = 0
+0:2/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:2/0/physics_layer_0/angular_velocity = 0.0
+0:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-17, -17, 17, -17, 17, 17, -17, 17)
+1:2/0 = 0
+1:2/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+1:2/0/physics_layer_0/angular_velocity = 0.0
+1:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-17, -17, 17, -17, 17, 17, -17, 17)
+2:2/0 = 0
+2:2/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+2:2/0/physics_layer_0/angular_velocity = 0.0
+2:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-17, -17, 17, -17, 17, 17, -17, 17)
+
+[sub_resource type="TileSet" id="TileSet_48gph"]
+tile_size = Vector2i(34, 34)
+physics_layer_0/collision_layer = 1
+sources/0 = SubResource("TileSetAtlasSource_6x2nv")
 
 [node name="Node2D" type="Node2D"]
 
@@ -81,3 +126,10 @@ shape = SubResource("RectangleShape2D_ec1qx")
 [node name="Head" type="Sprite2D" parent="Dummy"]
 rotation = -1.5708
 texture = ExtResource("11_ahjpq")
+
+[node name="Building Texture" type="TileMap" parent="."]
+position = Vector2(1, 0)
+tile_set = SubResource("TileSet_48gph")
+cell_quadrant_size = 34
+format = 2
+layer_0/tile_data = PackedInt32Array(4, 0, 1, -65532, 0, 1, -131067, 65536, 0, -131068, 0, 0, -131066, 65536, 0, -131065, 65536, 0, -131064, 65536, 0, -131063, 131072, 0, -65527, 131072, 1, 9, 131072, 1, 65545, 131072, 1, 131081, 131072, 2, 131080, 65536, 2, 131077, 65536, 2, 131076, 0, 2, 131078, 65536, 2, 131079, 65536, 2)

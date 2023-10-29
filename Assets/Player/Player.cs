@@ -6,10 +6,8 @@ public partial class Player : Godot.CharacterBody2D
 	bool moving = false;
 	int speed = 200;
 	State playerState = new State();
-	
 	PackedScene bullet_loader = GD.Load<PackedScene>("res://Assets/bullet.tscn");
-	
-
+	int health = 100;
 
 
 	void _Move(Vector2 direction)
@@ -39,7 +37,7 @@ public partial class Player : Godot.CharacterBody2D
 			GD.Print("ass");
 			Bullet bullet = (Bullet)bullet_loader.Instantiate();
 			bullet.direction = direction;
-			bullet.init_position = Position + direction * 15;
+			bullet.init_position = Position + direction * 20;
 			GetParent().AddChild(bullet);
 		}
 

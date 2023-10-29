@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using Godot.Collections;
 
 public partial class Bullet : Area2D
 {
@@ -7,14 +8,11 @@ public partial class Bullet : Area2D
 	int speed = 750;
 	public Vector2 init_position = new Vector2(0,0);
 	public Vector2 direction;
+	Array<Area2D> overlappingAreas;
+
+	Array<Node2D> overlappingBodies;
 
 	Vector2 velocity;
-	// public Bullet(Vector2 _direction, Vector2 _init_position)
-	// {
-	//     this.init_position = _init_position;
-	//     this.direction = _direction;
-	// }
-	
 
 	public void test()
 	{
@@ -25,7 +23,6 @@ public partial class Bullet : Area2D
 		{
 			Position = init_position;
 			velocity = direction * speed;
-			test();
 			
 		}
 
@@ -34,6 +31,30 @@ public partial class Bullet : Area2D
 		   //Position = Position + velocity;
 		   Translate(velocity * (float)delta);
 		   LookAt(Position + direction);
+
+		overlappingAreas = GetOverlappingAreas();
+		overlappingBodies = GetOverlappingBodies();
+		
+
+		for(int i = 0; i < overlappingAreas.Count; i++)
+		{
+			Area2D area = overlappingAreas[i];
+			QueueFree();
+
+			GD.Print("Area");
+			GD.Print(area);
+
+		}
+
+		for(int i = 0; i < overlappingBodies.Count; i++)
+		{
+			Node2D body = overlappingBodies[i];
+			QueueFree();
+			GD.Print("Body");
+			GD.Print(body);
+
+		}
+
 		}
 
 
