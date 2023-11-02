@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" path="res://Assets/Player/Player.cs" id="1_1nrfs"]
 [ext_resource type="Texture2D" uid="uid://vnsmfjsulpod" path="res://Assets/Sprites/background.PNG" id="1_f0haj"]
-[ext_resource type="Texture2D" uid="uid://omfbgbwy5pbs" path="res://Assets/Player/Sprites/Hero_Rifle/Hero_Rifle.png" id="2_18t4s"]
 [ext_resource type="Texture2D" uid="uid://cakvsskqe3ep8" path="res://Assets/Player/Sprites/Hero_Walk/With Kneepads/1.png" id="4_2jdna"]
 [ext_resource type="Texture2D" uid="uid://djl2272nbt73j" path="res://Assets/Player/Sprites/Hero_Walk/With Kneepads/2.png" id="5_fxerg"]
 [ext_resource type="Texture2D" uid="uid://djaqd5ur08428" path="res://Assets/Player/Sprites/Hero_Walk/With Kneepads/3.png" id="6_xu2xa"]
@@ -12,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://bfjnv4pbpweqt" path="res://Assets/Player/Sprites/Hero_Walk/With Kneepads/7.png" id="10_hj47v"]
 [ext_resource type="Script" path="res://Assets/CollisionDummy.cs" id="11_5lloo"]
 [ext_resource type="Texture2D" uid="uid://d2p7nw2akcwsk" path="res://Assets/Sprites/craftpix-000123-tds-modern-pixel-game-kit/tds-modern-soldiers-and-vehicles-sprites-2/Gunner/Gunner.png" id="11_ahjpq"]
+[ext_resource type="Texture2D" uid="uid://b5b1ujxv8qgjh" path="res://Assets/Sprites/craftpix-000123-tds-modern-pixel-game-kit/tds-modern-hero-weapons-and-props/Hero_MachineGun/Hero_MachineGun_Empty.png" id="11_cun0r"]
 [ext_resource type="Texture2D" uid="uid://ckjgsv24ln2wf" path="res://Assets/Sprites/craftpix-000123-tds-modern-pixel-game-kit/tds-modern-tilesets-environment/PNG/House/House.png" id="13_pritk"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6x2nv"]
@@ -119,7 +119,7 @@ shape = SubResource("RectangleShape2D_ec1qx")
 
 [node name="Head" type="Sprite2D" parent="Player"]
 rotation = 4.71239
-texture = ExtResource("2_18t4s")
+texture = ExtResource("11_cun0r")
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 zoom = Vector2(1.5, 1.5)
