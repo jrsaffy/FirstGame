@@ -12,6 +12,12 @@ public partial class Player : Godot.CharacterBody2D
 	bool can_fire = true;
 	Gun gun = new Gun(15.0f, 30, 25);
 	System.Diagnostics.Stopwatch gunStopwatch = new System.Diagnostics.Stopwatch();
+	float max_recoil = .3f;
+	float recoil = 0f;
+	float recoil_per_shot = .075f;
+	Vector2 recoil_direction;
+	Random random_generator = new Random();
+
 
 	void _Move(Vector2 direction)
 	{   
@@ -55,10 +61,18 @@ public partial class Player : Godot.CharacterBody2D
 			GD.Print("ass");
 			Bullet bullet = (Bullet)bullet_loader.Instantiate();
 			// Bullet bullet = new Bullet(Position + direction * 25, direction, gun.damage);
-			bullet.direction = direction;
+			recoil_direction = new Vector2(-direction.Y, direction.X);
+			float recoil_magnitude = (float)(random_generator.NextDouble() * (2 * recoil) - recoil);
+
+			bullet.direction = (direction + recoil_direction * recoil_magnitude).Normalized();
+			
 			bullet.init_position = Position + direction * 25;
 			bullet.LookAt(direction * 50);
 			GetParent().AddChild(bullet);
+			if (recoil <= max_recoil)
+			{
+				recoil += recoil_per_shot;
+			}
 			can_fire = false;
 			
 		}
@@ -66,6 +80,10 @@ public partial class Player : Godot.CharacterBody2D
 		{
 			gunStopwatch.Reset();
 			can_fire = true;
+		}
+		if(!Input.IsActionPressed("left_click"))
+		{
+			recoil = 0f;
 		}
 		GD.Print(gunStopwatch.ElapsedMilliseconds);
 
@@ -84,6 +102,14 @@ public partial class Player : Godot.CharacterBody2D
 		return direction;
 	}
 
+	void remove_recoil()
+	{
+		if (moving == false)
+		{
+			recoil -= .5f;
+		}
+	}
+
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
@@ -99,6 +125,7 @@ public partial class Player : Godot.CharacterBody2D
 		setSprint();
 		_Move(direction);
 		shoot((GetGlobalMousePosition() - Position).Normalized());
+
 		
 	}
 }
