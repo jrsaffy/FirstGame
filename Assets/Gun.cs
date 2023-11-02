@@ -18,14 +18,6 @@ public partial class Gun : Node2D
 	
 
 
-	// public Gun(float _firerateRoundsPerSecond, int _damage, int _max_amo)
-	// {
-	// 	this.firerateRoundsPerSecond = _firerateRoundsPerSecond;
-	// 	this.damage = _damage;
-	// 	this.max_ammo = _max_amo;
-	// 	this.ammo = _max_amo;
-	// }
-
 	public void Shoot(Vector2 direction)
 	{
 	if (Input.IsActionPressed("left_click") & can_fire & (ammo > 0))
