@@ -56,15 +56,6 @@ public partial class Gun : Node2D
 			can_fire = true;
             gunStopwatch.Stop();
 		}
-	// if(!Input.IsActionPressed("left_click"))
-	// 	{
-	// 		recoil = 0f;
-	// 	}
-    
-	 // GD.Print(gunStopwatch.ElapsedMilliseconds);
-
-    
-
 
 	}
 
@@ -83,8 +74,6 @@ public partial class Gun : Node2D
             ammo = max_ammo;
             reloading = false;
         }
-
-        GD.Print(reloadStopwatch.ElapsedMilliseconds);
 
     }
 
