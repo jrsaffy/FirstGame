@@ -32,10 +32,13 @@ public partial class  CollisionDummy: Area2D
 		{
 			Area2D area = overlappingAreas[i];
 			area.QueueFree();
-			// test();
+			Visible = !Visible;
 
 		}
+
+		
 	}
+
 
 	
 

@@ -57,6 +57,11 @@ public partial class Player : Godot.CharacterBody2D
 		return direction;
 	}
 
+	void Die()
+	{
+		
+	}
+
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
