@@ -12,6 +12,7 @@ public partial class Bullet : Area2D
 	Array<Node2D> overlappingBodies;
 	Vector2 velocity;
 	int damage;
+	AudioStreamPlayer2D gunshot_audio;
 
 
 	
@@ -28,17 +29,19 @@ public partial class Bullet : Area2D
 	}
 
 	public override void _Ready()
-		{
-			Position = init_position;
-			velocity = direction * speed;
+	{
+		Position = init_position;
+		velocity = direction * speed;
+		gunshot_audio = GetNode<AudioStreamPlayer2D>("GunshotPlayer");
+		gunshot_audio.Play();
 			
-		}
+	}
 
-		public override void _PhysicsProcess(double delta)
-		{
-		   //Position = Position + velocity;
-		   Translate(velocity * (float)delta);
-		   LookAt(Position + direction);
+	public override void _PhysicsProcess(double delta)
+	{
+		//Position = Position + velocity;
+		Translate(velocity * (float)delta);
+		LookAt(Position + direction);
 
 		overlappingAreas = GetOverlappingAreas();
 		overlappingBodies = GetOverlappingBodies();

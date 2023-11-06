@@ -7,7 +7,7 @@ public partial class Player : Godot.CharacterBody2D
 	int speed = 200;
 	State playerState = new State();
 	// PackedScene bullet_loader = GD.Load<PackedScene>("res://Assets/bullet.tscn");
-	PackedScene gun_loader = GD.Load<PackedScene>("res://Assets/gun.tscn");
+	PackedScene gun_loader = GD.Load<PackedScene>("res://Assets/Gun/gun.tscn");
 	int health = 100;
 	bool can_fire = true;
 
@@ -59,7 +59,7 @@ public partial class Player : Godot.CharacterBody2D
 
 	void Die()
 	{
-		
+
 	}
 
 	// Called when the node enters the scene tree for the first time.
