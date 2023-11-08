@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class Player : Godot.CharacterBody2D
+public partial class Player : CharacterBody2D
 {
 	bool moving = false;
 	int speed = 200;
@@ -10,8 +10,8 @@ public partial class Player : Godot.CharacterBody2D
 	PackedScene gun_loader = GD.Load<PackedScene>("res://Assets/Gun/gun.tscn");
 	int health = 100;
 	bool can_fire = true;
-
 	Gun gun;
+
 
 
 	void _Move(Vector2 direction)
@@ -62,11 +62,17 @@ public partial class Player : Godot.CharacterBody2D
 
 	}
 
+	void ShowEnemies()
+	{
+
+	}
+
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
 		// playerState.test();
 		Gun gun = (Gun)gun_loader.Instantiate();
+		
 		AddChild(gun);
 		
 	}

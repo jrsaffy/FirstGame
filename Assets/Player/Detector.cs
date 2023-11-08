@@ -2,16 +2,15 @@ using Godot;
 using System;
 using Godot.Collections;
 
-public partial class Bullet : Area2D
+public partial class Detector : Area2D
 {
 
-	int speed = 1000;
+	int speed = 1200;
 	public Vector2 init_position = new Vector2(0,0);
 	public Vector2 direction;
 	Array<Area2D> overlappingAreas;
 	Array<Node2D> overlappingBodies;
 	Vector2 velocity;
-	int damage;
 	// AudioStreamPlayer2D gunshot_audio;
 
 
@@ -23,15 +22,12 @@ public partial class Bullet : Area2D
 	// 	this.damage = _damage;
 	// }
 
-	public void test()
-	{
-		GD.Print("Hello, I am bullet");
-	}
 
 	public override void _Ready()
 	{
 		Position = init_position;
 		velocity = direction * speed;
+		GD.Print(velocity);
 		// gunshot_audio = GetNode<AudioStreamPlayer2D>("GunshotPlayer");
 		// gunshot_audio.Play();
 			
@@ -40,8 +36,8 @@ public partial class Bullet : Area2D
 	public override void _PhysicsProcess(double delta)
 	{
 		//Position = Position + velocity;
+		GD.Print("This is happening");
 		Translate(velocity * (float)delta);
-		LookAt(Position + direction);
 
 		overlappingAreas = GetOverlappingAreas();
 		overlappingBodies = GetOverlappingBodies();
@@ -50,7 +46,7 @@ public partial class Bullet : Area2D
 		for(int i = 0; i < overlappingAreas.Count; i++)
 		{
 			Area2D area = overlappingAreas[i];
-			if (!(area is Bullet) & !(area is EnemyDetector))
+			if (!(area is Detector) & !(area is EnemyDetector) & !(area is Detector))
 			{
 				QueueFree();
 			}
@@ -62,7 +58,11 @@ public partial class Bullet : Area2D
 		for(int i = 0; i < overlappingBodies.Count; i++)
 		{
 			Node2D body = overlappingBodies[i];
-			QueueFree();
+			if(!(body is Player))
+			{
+				QueueFree();
+			}
+			
 			// GD.Print("Body");
 			// GD.Print(body);
 
@@ -75,3 +75,4 @@ public partial class Bullet : Area2D
 
 
 }
+

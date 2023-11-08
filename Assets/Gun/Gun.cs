@@ -13,6 +13,7 @@ public partial class Gun : Node2D
 	System.Diagnostics.Stopwatch gunStopwatch = new System.Diagnostics.Stopwatch();
 	System.Diagnostics.Stopwatch reloadStopwatch = new System.Diagnostics.Stopwatch();
 	PackedScene bullet_loader = GD.Load<PackedScene>("res://Assets/bullet.tscn");
+	PackedScene bullet_audio_loader = GD.Load<PackedScene>("res://Assets/Gun/bullet_player.tscn");
 	float recoil = 0f;
 	float max_recoil = .3f;
 	float recoil_per_shot = .1f;
@@ -23,6 +24,7 @@ public partial class Gun : Node2D
 	Random random = new Random();
 
 	AudioStreamPlayer2D reload_audio_player;
+
 	
 
 
@@ -58,6 +60,10 @@ public partial class Gun : Node2D
 	void createBullet(Vector2 direction)
 	{
 		Bullet bullet = (Bullet)bullet_loader.Instantiate();
+
+		AudioStreamPlayer2D bullet_player = (AudioStreamPlayer2D)bullet_audio_loader.Instantiate();
+		AddChild(bullet_player);
+		
 		Vector2 recoil_direction = new Vector2(-direction.Y, direction.X);
 		float recoil_magnitude = (float)(random_generator.NextDouble() * (2 * recoil) - recoil);
 
@@ -66,6 +72,8 @@ public partial class Gun : Node2D
 
 		bullet.LookAt(direction * 50);
 		GetParent().GetParent().AddChild(bullet);
+
+
 	}
 
 
@@ -130,6 +138,7 @@ public partial class Gun : Node2D
 		// gunshot_audio = GetNode<AudioStreamPlayer>("AudioStreamPlayer");
 		
 		reload_audio_player = GetNode<AudioStreamPlayer2D>("ReloadPlayer");
+		
 		ammo = max_ammo;
 	}
 

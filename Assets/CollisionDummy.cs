@@ -10,10 +10,6 @@ public partial class  CollisionDummy: Area2D
 
 	Array<Area2D> overlappingAreas;
 
-	
-	
-
-
 	public void test()
 	{
 		GD.Print("I hit something");
@@ -28,13 +24,20 @@ public partial class  CollisionDummy: Area2D
 	{
 		overlappingAreas = GetOverlappingAreas();
 
-		for(int i = 0; i < overlappingAreas.Count; i++)
+		foreach(var area in overlappingAreas)
 		{
-			Area2D area = overlappingAreas[i];
-			area.QueueFree();
-			Visible = !Visible;
-
+			if(area is Detector || area is Bullet)
+			{
+				Visible = true;
+			}
+			
 		}
+		if(overlappingAreas.Count <= 1)
+		{
+			Visible = false;
+		}
+
+		// }
 
 		
 	}

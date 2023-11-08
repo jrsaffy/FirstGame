@@ -1,0 +1,28 @@
+[gd_scene load_steps=9 format=3 uid="uid://kj85i6remsmi"]
+
+[ext_resource type="AudioStream" uid="uid://bhqfasrtt78y6" path="res://Assets/Gun/5.56-AR15-Single-Close-GunShot-A.mp3" id="1_dx2ba"]
+[ext_resource type="AudioStream" uid="uid://dx1vmflheamcw" path="res://Assets/Gun/5.56-AR15-Single-Close-GunShot-B.mp3" id="2_schnu"]
+[ext_resource type="AudioStream" uid="uid://cp5fc3n0hkn07" path="res://Assets/Gun/5.56-AR15-Single-Close-GunShot-C.mp3" id="3_1iem6"]
+[ext_resource type="AudioStream" uid="uid://c6rpr2bhvorf4" path="res://Assets/Gun/5.56-AR15-Single-Close-GunShot-D.mp3" id="4_68kos"]
+[ext_resource type="AudioStream" uid="uid://cpspmnq2vmrji" path="res://Assets/Gun/5.56-AR15-Single-Close-GunShot-E.mp3" id="5_ion7j"]
+[ext_resource type="AudioStream" uid="uid://dxk6mqjv7ok1s" path="res://Assets/Gun/5.56-AR15-Single-Close-GunShot-F.mp3" id="6_gyjn6"]
+[ext_resource type="Script" path="res://Assets/Gun/gunshot_player.cs" id="7_3neae"]
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_kxk3e"]
+streams_count = 6
+stream_0/stream = ExtResource("1_dx2ba")
+stream_0/weight = 1.0
+stream_1/stream = ExtResource("2_schnu")
+stream_1/weight = 1.0
+stream_2/stream = ExtResource("3_1iem6")
+stream_2/weight = 1.0
+stream_3/stream = ExtResource("4_68kos")
+stream_3/weight = 1.0
+stream_4/stream = ExtResource("5_ion7j")
+stream_4/weight = 1.0
+stream_5/stream = ExtResource("6_gyjn6")
+stream_5/weight = 1.0
+
+[node name="BulletPlayer" type="AudioStreamPlayer2D"]
+stream = SubResource("AudioStreamRandomizer_kxk3e")
+script = ExtResource("7_3neae")

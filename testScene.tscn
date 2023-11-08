@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://dgdttba06tc26"]
+[gd_scene load_steps=30 format=3 uid="uid://dgdttba06tc26"]
 
 [ext_resource type="Script" path="res://Assets/Player/Player.cs" id="1_1nrfs"]
 [ext_resource type="Texture2D" uid="uid://vnsmfjsulpod" path="res://Assets/Sprites/background.PNG" id="1_f0haj"]
@@ -12,24 +12,53 @@
 [ext_resource type="Script" path="res://Assets/CollisionDummy.cs" id="11_5lloo"]
 [ext_resource type="Texture2D" uid="uid://d2p7nw2akcwsk" path="res://Assets/Sprites/craftpix-000123-tds-modern-pixel-game-kit/tds-modern-soldiers-and-vehicles-sprites-2/Gunner/Gunner.png" id="11_ahjpq"]
 [ext_resource type="Texture2D" uid="uid://b5b1ujxv8qgjh" path="res://Assets/Sprites/craftpix-000123-tds-modern-pixel-game-kit/tds-modern-hero-weapons-and-props/Hero_MachineGun/Hero_MachineGun_Empty.png" id="11_cun0r"]
+[ext_resource type="Script" path="res://Assets/Player/EnemyDetector.cs" id="12_dqtdm"]
 [ext_resource type="Texture2D" uid="uid://ckjgsv24ln2wf" path="res://Assets/Sprites/craftpix-000123-tds-modern-pixel-game-kit/tds-modern-tilesets-environment/PNG/House/House.png" id="13_pritk"]
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_5kerr"]
+polygon = PackedVector2Array(-17, -17, 17, -17, 17, -9.25, -8.75, -8.25, -8.25, 17, -17, 17)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_a1k41"]
+polygon = PackedVector2Array(-17, -17, -2.5, -17, -1.75, 17, -17, 17)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_bt0if"]
+polygon = PackedVector2Array(-17, -17, -17, 17, 17, 17, 17, 8.75, -8.48528, 9.19239, -9, -17)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_2tpw8"]
+polygon = PackedVector2Array(-17, -17, 17, -17, 17, -3.25, -17, -2.5)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_q4lqq"]
+polygon = PackedVector2Array(-17, 1.76776, 17, 2.82843, 17, 17, -17, 17)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_bnhfk"]
+polygon = PackedVector2Array(-17, -17, 17, -17, 17, 17, 9, 17, 9.25, -9, -17, -9)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_0ss0l"]
+polygon = PackedVector2Array(2.5, -17, 17, -17, 17, 17, 2.75, 17)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_2x4yo"]
+polygon = PackedVector2Array(8.25, 8.5, 8.25, -17, 17, -17, 17, 17, -17, 17, -17, 8.5)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6x2nv"]
 texture = ExtResource("13_pritk")
 texture_region_size = Vector2i(34, 34)
 0:0/0 = 0
+0:0/0/occlusion_layer_0/polygon = SubResource("OccluderPolygon2D_5kerr")
 0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 0:0/0/physics_layer_0/angular_velocity = 0.0
 0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-17, -17, 17, -17, 17, -8.75, -8, -8.5, -8.25, 17, -17, 17)
 1:0/0 = 0
+1:0/0/occlusion_layer_0/polygon = SubResource("OccluderPolygon2D_2tpw8")
 1:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 1:0/0/physics_layer_0/angular_velocity = 0.0
 1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-17, -17, 17, -17, 17, -8.75, -17, -8.5)
 2:0/0 = 0
+2:0/0/occlusion_layer_0/polygon = SubResource("OccluderPolygon2D_bnhfk")
 2:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 2:0/0/physics_layer_0/angular_velocity = 0.0
 2:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-17, -17, 17, -17, 17, 17, 8.75, 17, 9, -9, -17, -9.5)
 0:1/0 = 0
+0:1/0/occlusion_layer_0/polygon = SubResource("OccluderPolygon2D_a1k41")
 0:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 0:1/0/physics_layer_0/angular_velocity = 0.0
 0:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-17, -17, -8, -17, -8, 17, -17, 17)
@@ -37,24 +66,29 @@ texture_region_size = Vector2i(34, 34)
 1:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 1:1/0/physics_layer_0/angular_velocity = 0.0
 2:1/0 = 0
+2:1/0/occlusion_layer_0/polygon = SubResource("OccluderPolygon2D_0ss0l")
 2:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 2:1/0/physics_layer_0/angular_velocity = 0.0
 2:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(8.5, -17, 17, -17, 17, 17, 8.25, 17)
 0:2/0 = 0
+0:2/0/occlusion_layer_0/polygon = SubResource("OccluderPolygon2D_bt0if")
 0:2/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 0:2/0/physics_layer_0/angular_velocity = 0.0
 0:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-17, -17, -9, -17, -8.5, 8.25, 17, 8.5, 17, 17, -17, 17)
 1:2/0 = 0
+1:2/0/occlusion_layer_0/polygon = SubResource("OccluderPolygon2D_q4lqq")
 1:2/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 1:2/0/physics_layer_0/angular_velocity = 0.0
 1:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-17, 8.25, 17, 8.25, 17, 17, -17, 17)
 2:2/0 = 0
+2:2/0/occlusion_layer_0/polygon = SubResource("OccluderPolygon2D_2x4yo")
 2:2/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 2:2/0/physics_layer_0/angular_velocity = 0.0
 2:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(8.5, -17, 17, -17, 17, 17, -17, 17, -17, 8.25, 8, 8.25)
 
 [sub_resource type="TileSet" id="TileSet_48gph"]
 tile_size = Vector2i(34, 34)
+occlusion_layer_0/light_mask = 1
 physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_6x2nv")
 
@@ -88,6 +122,20 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ec1qx"]
+
+[sub_resource type="Gradient" id="Gradient_kxk6c"]
+offsets = PackedFloat32Array(0, 0.0129032, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0.922581, 0.922581, 0.922581, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_itj5b"]
+gradient = SubResource("Gradient_kxk6c")
+width = 500
+height = 500
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.784404, 0.252294)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_45bc7"]
 
 [node name="Node2D" type="Node2D"]
 
@@ -124,6 +172,17 @@ texture = ExtResource("11_cun0r")
 [node name="Camera2D" type="Camera2D" parent="Player"]
 zoom = Vector2(1.5, 1.5)
 
+[node name="PointLight2D" type="PointLight2D" parent="Player"]
+shadow_enabled = true
+texture = SubResource("GradientTexture2D_itj5b")
+
+[node name="EnemyDetector" type="Area2D" parent="Player"]
+script = ExtResource("12_dqtdm")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player/EnemyDetector"]
+scale = Vector2(20, 20)
+shape = SubResource("CircleShape2D_45bc7")
+
 [node name="Dummy" type="Area2D" parent="."]
 script = ExtResource("11_5lloo")
 
@@ -133,3 +192,6 @@ shape = SubResource("RectangleShape2D_ec1qx")
 [node name="Head" type="Sprite2D" parent="Dummy"]
 rotation = -1.5708
 texture = ExtResource("11_ahjpq")
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+color = Color(0.6, 0.6, 0.6, 1)
