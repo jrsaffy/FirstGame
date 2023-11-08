@@ -28,16 +28,16 @@ public partial class  CollisionDummy: Area2D
 		{
 			if(area is Detector || area is Bullet)
 			{
-				Visible = true;
+				Visible = !Visible;
 			}
 			
 		}
-		if(overlappingAreas.Count <= 1)
+		if(overlappingAreas.Count == 0)
 		{
 			Visible = false;
 		}
 
-		// }
+		}
 
 		
 	}
@@ -46,4 +46,4 @@ public partial class  CollisionDummy: Area2D
 	
 
 
-}
+

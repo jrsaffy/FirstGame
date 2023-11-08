@@ -17,6 +17,7 @@ public partial class Gun : Node2D
 	float recoil = 0f;
 	float max_recoil = .3f;
 	float recoil_per_shot = .1f;
+	float recoil_from_movement = .01f;
 	Random random_generator = new Random();
 	float reload_time = 1000f;
 	bool reloading = false;
@@ -24,6 +25,8 @@ public partial class Gun : Node2D
 	Random random = new Random();
 
 	AudioStreamPlayer2D reload_audio_player;
+	Vector2 prev_pos;
+	Vector2 velocity;
 
 	
 
@@ -132,24 +135,43 @@ public partial class Gun : Node2D
 		}
 	}
 
+	void addMovementRecoil()
+	{
+		if (velocity.Length() > 0 & recoil <= max_recoil)
+		{
+			recoil += recoil_from_movement;
+		}
+		else
+		{
+			reduceRecoil();
+		}
+	}
+
 	public override void _Ready()
 	{
 		GD.Print("This is happening");
 		// gunshot_audio = GetNode<AudioStreamPlayer>("AudioStreamPlayer");
+		prev_pos = GlobalPosition;
 		
 		reload_audio_player = GetNode<AudioStreamPlayer2D>("ReloadPlayer");
-		
+
 		ammo = max_ammo;
 	}
 
 	
 	void _physics_process(double delta)
 	{
+
 		Shoot((GetGlobalMousePosition() - GlobalPosition).Normalized());
-		reduceRecoil();
+		GD.Print(GlobalPosition);
+		GD.Print(prev_pos);
+		velocity = (GlobalPosition - prev_pos) / (float)delta;
+		GD.Print(velocity);
+		prev_pos = GlobalPosition;
+		addMovementRecoil();
 		Reload();
 		
-		// GD.Print(ammo);
+	
 		
 	}
 

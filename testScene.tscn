@@ -129,11 +129,11 @@ colors = PackedColorArray(1, 1, 1, 1, 0.922581, 0.922581, 0.922581, 1, 0, 0, 0, 
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_itj5b"]
 gradient = SubResource("Gradient_kxk6c")
-width = 500
-height = 500
+width = 600
+height = 600
 fill = 1
 fill_from = Vector2(0.5, 0.5)
-fill_to = Vector2(0.784404, 0.252294)
+fill_to = Vector2(0.807339, 0.20367)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_45bc7"]
 
@@ -172,15 +172,15 @@ texture = ExtResource("11_cun0r")
 [node name="Camera2D" type="Camera2D" parent="Player"]
 zoom = Vector2(1.5, 1.5)
 
-[node name="PointLight2D" type="PointLight2D" parent="Player"]
-shadow_enabled = true
-texture = SubResource("GradientTexture2D_itj5b")
-
 [node name="EnemyDetector" type="Area2D" parent="Player"]
 script = ExtResource("12_dqtdm")
 
+[node name="PointLight2D" type="PointLight2D" parent="Player/EnemyDetector"]
+shadow_enabled = true
+texture = SubResource("GradientTexture2D_itj5b")
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player/EnemyDetector"]
-scale = Vector2(20, 20)
+scale = Vector2(25, 25)
 shape = SubResource("CircleShape2D_45bc7")
 
 [node name="Dummy" type="Area2D" parent="."]
