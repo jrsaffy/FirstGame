@@ -1,0 +1,43 @@
+[gd_scene load_steps=2 format=3 uid="uid://8h6eyurykvjf"]
+
+[ext_resource type="Script" path="res://Assets/MultiplayerController.cs" id="1_cr15i"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_cr15i")
+
+[node name="Host" type="Button" parent="."]
+layout_mode = 0
+offset_left = 90.0
+offset_top = 96.0
+offset_right = 168.0
+offset_bottom = 127.0
+scale = Vector2(4.18687, 3.22446)
+text = "    Host    "
+
+[node name="Join" type="Button" parent="."]
+layout_mode = 0
+offset_left = 423.0
+offset_top = 97.0
+offset_right = 490.0
+offset_bottom = 128.0
+scale = Vector2(4.84641, 3.11927)
+text = "   Join    "
+
+[node name="StartGame" type="Button" parent="."]
+layout_mode = 0
+offset_left = 92.0
+offset_top = 207.0
+offset_right = 221.0
+offset_bottom = 238.0
+scale = Vector2(5.00919, 4.11392)
+text = "    Start Game    "
+
+[connection signal="button_down" from="Host" to="." method="OnHost"]
+[connection signal="button_down" from="Join" to="." method="OnJoin"]
+[connection signal="button_down" from="StartGame" to="." method="OnStartGame"]

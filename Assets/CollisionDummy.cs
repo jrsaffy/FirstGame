@@ -5,7 +5,7 @@ using Godot.Collections;
 public partial class  CollisionDummy: Area2D
 {
 
-	PackedScene bullet_loader = GD.Load<PackedScene>("res://Assets/bullet.tscn");
+	PackedScene bullet_loader = GD.Load<PackedScene>("res://Assets/Gun/bullet.tscn");
 	Bullet bullet;
 
 	Array<Area2D> overlappingAreas;

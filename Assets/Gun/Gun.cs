@@ -12,7 +12,7 @@ public partial class Gun : Node2D
 	bool can_fire = true;
 	System.Diagnostics.Stopwatch gunStopwatch = new System.Diagnostics.Stopwatch();
 	System.Diagnostics.Stopwatch reloadStopwatch = new System.Diagnostics.Stopwatch();
-	PackedScene bullet_loader = GD.Load<PackedScene>("res://Assets/bullet.tscn");
+	PackedScene bullet_loader = GD.Load<PackedScene>("res://Assets/Gun/bullet.tscn");
 	PackedScene bullet_audio_loader = GD.Load<PackedScene>("res://Assets/Gun/bullet_player.tscn");
 	float recoil = 0f;
 	float max_recoil = .3f;

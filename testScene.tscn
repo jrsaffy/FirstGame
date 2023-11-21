@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://dgdttba06tc26"]
+[gd_scene load_steps=29 format=3 uid="uid://dgdttba06tc26"]
 
 [ext_resource type="Script" path="res://Assets/Player/Player.cs" id="1_1nrfs"]
 [ext_resource type="Texture2D" uid="uid://vnsmfjsulpod" path="res://Assets/Sprites/background.PNG" id="1_f0haj"]
@@ -9,7 +9,6 @@
 [ext_resource type="Texture2D" uid="uid://2jbxouyo0ttc" path="res://Assets/Player/Sprites/Hero_Walk/With Kneepads/5.png" id="8_aq3lq"]
 [ext_resource type="Texture2D" uid="uid://bxyrqj5x5pt7a" path="res://Assets/Player/Sprites/Hero_Walk/With Kneepads/6.png" id="9_vfxll"]
 [ext_resource type="Texture2D" uid="uid://bfjnv4pbpweqt" path="res://Assets/Player/Sprites/Hero_Walk/With Kneepads/7.png" id="10_hj47v"]
-[ext_resource type="Script" path="res://Assets/CollisionDummy.cs" id="11_5lloo"]
 [ext_resource type="Texture2D" uid="uid://d2p7nw2akcwsk" path="res://Assets/Sprites/craftpix-000123-tds-modern-pixel-game-kit/tds-modern-soldiers-and-vehicles-sprites-2/Gunner/Gunner.png" id="11_ahjpq"]
 [ext_resource type="Texture2D" uid="uid://b5b1ujxv8qgjh" path="res://Assets/Sprites/craftpix-000123-tds-modern-pixel-game-kit/tds-modern-hero-weapons-and-props/Hero_MachineGun/Hero_MachineGun_Empty.png" id="11_cun0r"]
 [ext_resource type="Script" path="res://Assets/Player/EnemyDetector.cs" id="12_dqtdm"]
@@ -184,7 +183,6 @@ scale = Vector2(25, 25)
 shape = SubResource("CircleShape2D_45bc7")
 
 [node name="Dummy" type="Area2D" parent="."]
-script = ExtResource("11_5lloo")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Dummy"]
 shape = SubResource("RectangleShape2D_ec1qx")
