@@ -27,6 +27,7 @@ public partial class MultiplayerController : Control
 	public void OnConnectedToServer()
 	{
 		GD.Print("Connected To Server");
+		RpcId(1, "sendPlayerInformation", "Bob", Multiplayer.GetUniqueId());
 	}
 
 	//Runs on all peers when player disconnects
@@ -44,9 +45,15 @@ public partial class MultiplayerController : Control
 	[Rpc(MultiplayerApi.RpcMode.AnyPeer, CallLocal = true, TransferMode = MultiplayerPeer.TransferModeEnum.Reliable)]
 	public void startGame()
 	{
+		foreach(PlayerInformation player in GameManager.GamePlayerInfo)
+		{
+			GD.Print($"{player.Name} started game");
+		}
+
 		Node2D level = (Node2D)level_loader.Instantiate();
 		GetTree().Root.AddChild(level);
 		this.Hide();
+
 	}
 	public void OnStartGame()
 	{
@@ -66,6 +73,7 @@ public partial class MultiplayerController : Control
 			peer.Host.Compress(compression);
 			Multiplayer.MultiplayerPeer = peer;
 			GD.Print("Creating Server");
+			sendPlayerInformation("George", 1);
 
 		}
 			
@@ -97,11 +105,29 @@ public partial class MultiplayerController : Control
 		}
 
 	}
-	
-	
+	[Rpc(MultiplayerApi.RpcMode.AnyPeer)]
+	private void sendPlayerInformation(string name, int id)
+	{
+		PlayerInformation player_info = new PlayerInformation(){
+			Name = name,
+			Id = id
+		};
+		if (!GameManager.GamePlayerInfo.Contains(player_info))
+		{
+			GameManager.GamePlayerInfo.Add(player_info);
+		}
+		if(Multiplayer.IsServer())
+		{
+			foreach(PlayerInformation player in GameManager.GamePlayerInfo)
+			{
+				Rpc("sendPlayerInformation", player.Name, player.Id);
+			}
+		}
+	}
+
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
+	public override void _PhysicsProcess(double delta)
 	{
 	}
 }

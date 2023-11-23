@@ -149,7 +149,7 @@ public partial class Gun : Node2D
 
 	public override void _Ready()
 	{
-		GD.Print("This is happening");
+		// GD.Print("This is happening");
 		// gunshot_audio = GetNode<AudioStreamPlayer>("AudioStreamPlayer");
 		prev_pos = GlobalPosition;
 		
@@ -163,10 +163,10 @@ public partial class Gun : Node2D
 	{
 
 		Shoot((GetGlobalMousePosition() - GlobalPosition).Normalized());
-		GD.Print(GlobalPosition);
-		GD.Print(prev_pos);
+		// GD.Print(GlobalPosition);
+		// GD.Print(prev_pos);
 		velocity = (GlobalPosition - prev_pos) / (float)delta;
-		GD.Print(velocity);
+		// GD.Print(velocity);
 		prev_pos = GlobalPosition;
 		addMovementRecoil();
 		Reload();

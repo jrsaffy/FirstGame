@@ -1,43 +1,48 @@
 using Godot;
 using Godot.Collections;
 using System;
+using System.Security.Cryptography.X509Certificates;
 
 public partial class EnemyDetector : Area2D
 {
-	Array<Area2D> overlappingAreas;
+	Array<Node2D> overlappingBodies;
 	PackedScene detector_loader = GD.Load<PackedScene>("res://Assets/Player/detector.tscn");
+	MultiplayerSynchronizer multiplayer_synchronizer;
 
 	
 	 
 	void detectEnemies()
 	{
-		overlappingAreas = GetOverlappingAreas();
-		// GD.Print("This is running");
-
-		foreach(var area in overlappingAreas)
+		overlappingBodies = GetOverlappingBodies();
+		
+		foreach(var body in overlappingBodies)
 		{
-			// GD.Print(area);
-			if (!(area is Bullet) & !(area is Detector) & !(area is EnemyDetector))
+			
+			
+			if (body is Player player)
 			{
-				// Vector2 direction = area.GlobalPosition - GlobalPosition;
-				// Detector detector_projectile = (Detector)detector_loader.Instantiate();
-				// detector_projectile.direction = direction.Normalized();
-				// detector_projectile.init_position = GlobalPosition;
-				// GetParent().GetParent().AddChild(detector_projectile);
-				var spaceState = GetWorld2D().DirectSpaceState;
-				PhysicsRayQueryParameters2D parameters = new PhysicsRayQueryParameters2D();
-				parameters.From = GlobalPosition;
-				parameters.To = area.GlobalPosition;
-				var intersect = spaceState.IntersectRay(parameters);
-				if(intersect.Count == 0)
+				
+				if(!(player.Id == GetParent<Player>().Id))
 				{
-					area.Visible = true;
+					GD.Print($"{GetParent<Player>().name} detected {player.name}");
+					
+					var spaceState = GetWorld2D().DirectSpaceState;
+					PhysicsRayQueryParameters2D parameters = new PhysicsRayQueryParameters2D();
+					parameters.From = GlobalPosition;
+					parameters.To = player.GlobalPosition;
+					
+					// DrawLine(GlobalPosition, player.GlobalPosition,Color.Color8(255,0,0,1));
+					var intersect = spaceState.IntersectRay(parameters);
+					Node2D collision = (Node2D)intersect["collider"];
+					if(collision is Player)
+					{
+						player.Visible = true;
+					}
+					else
+					{
+						player.Visible = false;
+					}
 				}
-				else
-				{
-					area.Visible = false;
-				}
-
 
 				
 			}
@@ -47,12 +52,17 @@ public partial class EnemyDetector : Area2D
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		
+		multiplayer_synchronizer = GetParent().GetNode<MultiplayerSynchronizer>("MultiplayerSynchronizer");
+
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _PhysicsProcess(double delta)
 	{
-		detectEnemies();
+		if (multiplayer_synchronizer.GetMultiplayerAuthority() == Multiplayer.GetUniqueId())
+		{
+			detectEnemies();
+		}
 	}
+	
 }

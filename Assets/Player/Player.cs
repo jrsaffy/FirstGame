@@ -3,6 +3,8 @@ using System;
 
 public partial class Player : CharacterBody2D
 {
+	public string name;
+	public int Id;
 	bool moving = false;
 	int speed = 200;
 	State playerState = new State();
@@ -11,6 +13,9 @@ public partial class Player : CharacterBody2D
 	int health = 100;
 	bool can_fire = true;
 	Gun gun;
+	MultiplayerSynchronizer multiplayer_synchronizer;
+	
+
 
 
 
@@ -55,6 +60,7 @@ public partial class Player : CharacterBody2D
 		int vertical = up + down;
 		Vector2 direction = new Vector2(horizontal, vertical).Normalized();
 		return direction;
+
 	}
 
 	void Die()
@@ -70,22 +76,35 @@ public partial class Player : CharacterBody2D
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		// playerState.test();
+		multiplayer_synchronizer = GetNode<MultiplayerSynchronizer>("MultiplayerSynchronizer");
+		multiplayer_synchronizer.SetMultiplayerAuthority(Id);
 		Gun gun = (Gun)gun_loader.Instantiate();
 		
 		AddChild(gun);
+
+		if(!(multiplayer_synchronizer.GetMultiplayerAuthority() == Multiplayer.GetUniqueId()))
+		{
+			Visible = false;
+			GetNode<Area2D>("EnemyDetector").GetNode<PointLight2D>("PointLight2D").QueueFree();
+			GetNode<Camera2D>("Camera2D").QueueFree();
+		}
 		
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public void _physics_process(double delta)
 	{
-		// GD.Print(Position);
-		LookAt(GetGlobalMousePosition());
-		Vector2 direction = _GetMovementDirection();
-		_Move(direction);
-		
-
-		
+		// GD.Print($"{name}:{Id}:{Multiplayer.GetUniqueId()}");
+		if(multiplayer_synchronizer.GetMultiplayerAuthority() == Multiplayer.GetUniqueId())
+		{
+			LookAt(GetGlobalMousePosition());
+			Vector2 direction = _GetMovementDirection();
+			_Move(direction);
+		}
+		else
+		{
+			
+			
+		}
 	}
 }

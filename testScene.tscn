@@ -1,17 +1,8 @@
-[gd_scene load_steps=29 format=3 uid="uid://dgdttba06tc26"]
+[gd_scene load_steps=16 format=3 uid="uid://dgdttba06tc26"]
 
-[ext_resource type="Script" path="res://Assets/Player/Player.cs" id="1_1nrfs"]
+[ext_resource type="Script" path="res://Assets/SceneManager.cs" id="1_13xsq"]
 [ext_resource type="Texture2D" uid="uid://vnsmfjsulpod" path="res://Assets/Sprites/background.PNG" id="1_f0haj"]
-[ext_resource type="Texture2D" uid="uid://cakvsskqe3ep8" path="res://Assets/Player/Sprites/Hero_Walk/With Kneepads/1.png" id="4_2jdna"]
-[ext_resource type="Texture2D" uid="uid://djl2272nbt73j" path="res://Assets/Player/Sprites/Hero_Walk/With Kneepads/2.png" id="5_fxerg"]
-[ext_resource type="Texture2D" uid="uid://djaqd5ur08428" path="res://Assets/Player/Sprites/Hero_Walk/With Kneepads/3.png" id="6_xu2xa"]
-[ext_resource type="Texture2D" uid="uid://co5wytj3t4n4a" path="res://Assets/Player/Sprites/Hero_Walk/With Kneepads/4.png" id="7_xh0aw"]
-[ext_resource type="Texture2D" uid="uid://2jbxouyo0ttc" path="res://Assets/Player/Sprites/Hero_Walk/With Kneepads/5.png" id="8_aq3lq"]
-[ext_resource type="Texture2D" uid="uid://bxyrqj5x5pt7a" path="res://Assets/Player/Sprites/Hero_Walk/With Kneepads/6.png" id="9_vfxll"]
-[ext_resource type="Texture2D" uid="uid://bfjnv4pbpweqt" path="res://Assets/Player/Sprites/Hero_Walk/With Kneepads/7.png" id="10_hj47v"]
 [ext_resource type="Texture2D" uid="uid://d2p7nw2akcwsk" path="res://Assets/Sprites/craftpix-000123-tds-modern-pixel-game-kit/tds-modern-soldiers-and-vehicles-sprites-2/Gunner/Gunner.png" id="11_ahjpq"]
-[ext_resource type="Texture2D" uid="uid://b5b1ujxv8qgjh" path="res://Assets/Sprites/craftpix-000123-tds-modern-pixel-game-kit/tds-modern-hero-weapons-and-props/Hero_MachineGun/Hero_MachineGun_Empty.png" id="11_cun0r"]
-[ext_resource type="Script" path="res://Assets/Player/EnemyDetector.cs" id="12_dqtdm"]
 [ext_resource type="Texture2D" uid="uid://ckjgsv24ln2wf" path="res://Assets/Sprites/craftpix-000123-tds-modern-pixel-game-kit/tds-modern-tilesets-environment/PNG/House/House.png" id="13_pritk"]
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_5kerr"]
@@ -91,52 +82,20 @@ occlusion_layer_0/light_mask = 1
 physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_6x2nv")
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_xu5h6"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("10_hj47v")
-}, {
-"duration": 1.0,
-"texture": ExtResource("4_2jdna")
-}, {
-"duration": 1.0,
-"texture": ExtResource("5_fxerg")
-}, {
-"duration": 1.0,
-"texture": ExtResource("6_xu2xa")
-}, {
-"duration": 1.0,
-"texture": ExtResource("7_xh0aw")
-}, {
-"duration": 1.0,
-"texture": ExtResource("8_aq3lq")
-}, {
-"duration": 1.0,
-"texture": ExtResource("9_vfxll")
-}],
-"loop": true,
-"name": &"default",
-"speed": 15.0
-}]
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ec1qx"]
 
-[sub_resource type="Gradient" id="Gradient_kxk6c"]
-offsets = PackedFloat32Array(0, 0.0129032, 1)
-colors = PackedColorArray(1, 1, 1, 1, 0.922581, 0.922581, 0.922581, 1, 0, 0, 0, 1)
+[node name="Scene" type="Node2D"]
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_itj5b"]
-gradient = SubResource("Gradient_kxk6c")
-width = 600
-height = 600
-fill = 1
-fill_from = Vector2(0.5, 0.5)
-fill_to = Vector2(0.807339, 0.20367)
+[node name="SceneManager" type="Node" parent="."]
+script = ExtResource("1_13xsq")
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_45bc7"]
+[node name="SpawnPoints" type="Node" parent="SceneManager"]
 
-[node name="Node2D" type="Node2D"]
+[node name="1" type="Node2D" parent="SceneManager/SpawnPoints"]
+position = Vector2(-86, -11)
+
+[node name="2" type="Node2D" parent="SceneManager/SpawnPoints"]
+position = Vector2(-86, 67)
 
 [node name="TextureRect" type="TextureRect" parent="."]
 offset_left = -281.0
@@ -151,36 +110,6 @@ tile_set = SubResource("TileSet_48gph")
 cell_quadrant_size = 34
 format = 2
 layer_0/tile_data = PackedInt32Array(4, 0, 1, -65532, 0, 1, -131067, 65536, 0, -131068, 0, 0, -131066, 65536, 0, -131065, 65536, 0, -131064, 65536, 0, -131063, 131072, 0, -65527, 131072, 1, 9, 131072, 1, 65545, 131072, 1, 131081, 131072, 2, 131080, 65536, 2, 131077, 65536, 2, 131076, 0, 2, 131078, 65536, 2, 131079, 65536, 2, -65531, 65536, 1, -65530, 65536, 1, -65529, 65536, 1, 5, 65536, 1, 65541, 65536, 1, 65542, 65536, 1, 65543, 65536, 1, 65544, 65536, 1, 8, 65536, 1, -65528, 65536, 1, 7, 65536, 1, 6, 65536, 1, 65540, 65536, 1)
-
-[node name="Player" type="CharacterBody2D" parent="."]
-position = Vector2(50, 50)
-script = ExtResource("1_1nrfs")
-
-[node name="Legs" type="AnimatedSprite2D" parent="Player"]
-rotation = -1.5708
-sprite_frames = SubResource("SpriteFrames_xu5h6")
-frame_progress = 0.287337
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
-shape = SubResource("RectangleShape2D_ec1qx")
-
-[node name="Head" type="Sprite2D" parent="Player"]
-rotation = 4.71239
-texture = ExtResource("11_cun0r")
-
-[node name="Camera2D" type="Camera2D" parent="Player"]
-zoom = Vector2(1.5, 1.5)
-
-[node name="EnemyDetector" type="Area2D" parent="Player"]
-script = ExtResource("12_dqtdm")
-
-[node name="PointLight2D" type="PointLight2D" parent="Player/EnemyDetector"]
-shadow_enabled = true
-texture = SubResource("GradientTexture2D_itj5b")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Player/EnemyDetector"]
-scale = Vector2(25, 25)
-shape = SubResource("CircleShape2D_45bc7")
 
 [node name="Dummy" type="Area2D" parent="."]
 
