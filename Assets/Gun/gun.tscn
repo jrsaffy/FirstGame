@@ -1,8 +1,18 @@
-[gd_scene load_steps=4 format=3 uid="uid://bekngtdaffqjd"]
+[gd_scene load_steps=5 format=3 uid="uid://bekngtdaffqjd"]
 
 [ext_resource type="Script" path="res://Assets/Gun/Gun.cs" id="1_rtk64"]
 [ext_resource type="Texture2D" uid="uid://bt7dl5gjwxv21" path="res://Assets/Sprites/craftpix-000123-tds-modern-pixel-game-kit/tds-modern-hero-weapons-and-props/Hero_MachineGun/MachineGun.png" id="2_l4kis"]
 [ext_resource type="AudioStream" uid="uid://jx10tgd58xoe" path="res://Assets/Gun/Rifle-Reload-Foley-B.mp3" id="9_q1j1q"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_oj5pp"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/sync = true
+properties/0/watch = false
+properties/1/path = NodePath(".:rotation")
+properties/1/spawn = true
+properties/1/sync = true
+properties/1/watch = false
 
 [node name="Gun" type="Node2D"]
 script = ExtResource("1_rtk64")
@@ -14,3 +24,6 @@ texture = ExtResource("2_l4kis")
 
 [node name="ReloadPlayer" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("9_q1j1q")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_oj5pp")

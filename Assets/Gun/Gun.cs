@@ -4,7 +4,7 @@ using System.Diagnostics;
 
 public partial class Gun : Node2D
 {
-
+	int player_id;
 	public float firerateRoundsPerSecond = 15f;
 	public int damage = 30;
 	int max_ammo = 25;
@@ -28,7 +28,8 @@ public partial class Gun : Node2D
 	Vector2 prev_pos;
 	Vector2 velocity;
 
-	
+	MultiplayerSynchronizer multiplayer_synchronizer;
+
 
 
 	public void Shoot(Vector2 direction)
@@ -37,7 +38,8 @@ public partial class Gun : Node2D
 			{
 				gunStopwatch.Start();
 
-				createBullet(direction);
+				// createBullet(direction);
+				Rpc("createBullet", direction);
 
 				playGunshot();
 
@@ -59,7 +61,7 @@ public partial class Gun : Node2D
 		}
 
 
-
+	[Rpc(MultiplayerApi.RpcMode.AnyPeer, CallLocal = true)]
 	void createBullet(Vector2 direction)
 	{
 		Bullet bullet = (Bullet)bullet_loader.Instantiate();
@@ -151,9 +153,16 @@ public partial class Gun : Node2D
 	{
 		// GD.Print("This is happening");
 		// gunshot_audio = GetNode<AudioStreamPlayer>("AudioStreamPlayer");
+
+		player_id = GetParent<Player>().Id;
+
+		multiplayer_synchronizer = GetNode<MultiplayerSynchronizer>("MultiplayerSynchronizer");
+		multiplayer_synchronizer.SetMultiplayerAuthority(player_id);
 		prev_pos = GlobalPosition;
 		
 		reload_audio_player = GetNode<AudioStreamPlayer2D>("ReloadPlayer");
+
+		
 
 		ammo = max_ammo;
 	}
@@ -161,15 +170,25 @@ public partial class Gun : Node2D
 	
 	void _physics_process(double delta)
 	{
+		GD.Print(GetParent<Player>().name);
+		GD.Print(multiplayer_synchronizer.GetMultiplayerAuthority());
+		GD.Print(Multiplayer.GetUniqueId());
+		GD.Print("--------------------------");
+		
 
-		Shoot((GetGlobalMousePosition() - GlobalPosition).Normalized());
-		// GD.Print(GlobalPosition);
-		// GD.Print(prev_pos);
-		velocity = (GlobalPosition - prev_pos) / (float)delta;
-		// GD.Print(velocity);
-		prev_pos = GlobalPosition;
-		addMovementRecoil();
-		Reload();
+
+		if(multiplayer_synchronizer.GetMultiplayerAuthority() == Multiplayer.GetUniqueId())
+		{
+			Shoot((GetGlobalMousePosition() - GlobalPosition).Normalized());
+			// Rpc("Shoot", (GetGlobalMousePosition() - GlobalPosition).Normalized());
+			// GD.Print(GlobalPosition);
+			// GD.Print(prev_pos);
+			velocity = (GlobalPosition - prev_pos) / (float)delta;
+			// GD.Print(velocity);
+			prev_pos = GlobalPosition;
+			addMovementRecoil();
+			Reload();
+		}
 		
 	
 		

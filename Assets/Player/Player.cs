@@ -14,9 +14,6 @@ public partial class Player : CharacterBody2D
 	bool can_fire = true;
 	Gun gun;
 	MultiplayerSynchronizer multiplayer_synchronizer;
-	
-
-
 
 
 	void _Move(Vector2 direction)

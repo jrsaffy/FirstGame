@@ -24,7 +24,7 @@ public partial class EnemyDetector : Area2D
 				
 				if(!(player.Id == GetParent<Player>().Id))
 				{
-					GD.Print($"{GetParent<Player>().name} detected {player.name}");
+					// GD.Print($"{GetParent<Player>().name} detected {player.name}");
 					
 					var spaceState = GetWorld2D().DirectSpaceState;
 					PhysicsRayQueryParameters2D parameters = new PhysicsRayQueryParameters2D();
