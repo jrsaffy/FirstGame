@@ -7,7 +7,7 @@ public partial class MultiplayerController : Control
 	PackedScene level_loader = GD.Load<PackedScene>("res://testScene.tscn");
 	private ENetMultiplayerPeer peer;
 	private int port = 8910;
-	private string ip = "127.0.0.1";
+	private string ip = "73.177.129.248";
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
