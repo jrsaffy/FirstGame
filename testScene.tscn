@@ -1,8 +1,7 @@
-[gd_scene load_steps=16 format=3 uid="uid://dgdttba06tc26"]
+[gd_scene load_steps=14 format=3 uid="uid://dgdttba06tc26"]
 
 [ext_resource type="Script" path="res://Assets/SceneManager.cs" id="1_13xsq"]
 [ext_resource type="Texture2D" uid="uid://vnsmfjsulpod" path="res://Assets/Sprites/background.PNG" id="1_f0haj"]
-[ext_resource type="Texture2D" uid="uid://d2p7nw2akcwsk" path="res://Assets/Sprites/craftpix-000123-tds-modern-pixel-game-kit/tds-modern-soldiers-and-vehicles-sprites-2/Gunner/Gunner.png" id="11_ahjpq"]
 [ext_resource type="Texture2D" uid="uid://ckjgsv24ln2wf" path="res://Assets/Sprites/craftpix-000123-tds-modern-pixel-game-kit/tds-modern-tilesets-environment/PNG/House/House.png" id="13_pritk"]
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_5kerr"]
@@ -82,8 +81,6 @@ occlusion_layer_0/light_mask = 1
 physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_6x2nv")
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ec1qx"]
-
 [node name="Scene" type="Node2D"]
 
 [node name="SceneManager" type="Node" parent="."]
@@ -110,15 +107,6 @@ tile_set = SubResource("TileSet_48gph")
 cell_quadrant_size = 34
 format = 2
 layer_0/tile_data = PackedInt32Array(4, 0, 1, -65532, 0, 1, -131067, 65536, 0, -131068, 0, 0, -131066, 65536, 0, -131065, 65536, 0, -131064, 65536, 0, -131063, 131072, 0, -65527, 131072, 1, 9, 131072, 1, 65545, 131072, 1, 131081, 131072, 2, 131080, 65536, 2, 131077, 65536, 2, 131076, 0, 2, 131078, 65536, 2, 131079, 65536, 2, -65531, 65536, 1, -65530, 65536, 1, -65529, 65536, 1, 5, 65536, 1, 65541, 65536, 1, 65542, 65536, 1, 65543, 65536, 1, 65544, 65536, 1, 8, 65536, 1, -65528, 65536, 1, 7, 65536, 1, 6, 65536, 1, 65540, 65536, 1)
-
-[node name="Dummy" type="Area2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Dummy"]
-shape = SubResource("RectangleShape2D_ec1qx")
-
-[node name="Head" type="Sprite2D" parent="Dummy"]
-rotation = -1.5708
-texture = ExtResource("11_ahjpq")
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 color = Color(0.6, 0.6, 0.6, 1)

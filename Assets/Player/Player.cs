@@ -5,15 +5,17 @@ public partial class Player : CharacterBody2D
 {
 	public string name;
 	public int Id;
+	public int health = 100;
 	bool moving = false;
 	int speed = 200;
 	State playerState = new State();
 	// PackedScene bullet_loader = GD.Load<PackedScene>("res://Assets/bullet.tscn");
 	PackedScene gun_loader = GD.Load<PackedScene>("res://Assets/Gun/gun.tscn");
-	int health = 100;
 	bool can_fire = true;
 	Gun gun;
 	MultiplayerSynchronizer multiplayer_synchronizer;
+
+	SceneManager scene_manager;
 
 
 	void _Move(Vector2 direction)
@@ -60,15 +62,28 @@ public partial class Player : CharacterBody2D
 
 	}
 
+	void checkHealth()
+	{
+		if (health <= 0)
+		{
+			Die();
+		}
+	}
+
+	void setDieAnimation()
+	{
+
+	}
+
 	void Die()
 	{
-
+		setDieAnimation();
+		scene_manager.playersToSpawn.Add(this);
+		health = 100;
+		
 	}
 
-	void ShowEnemies()
-	{
 
-	}
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -76,6 +91,7 @@ public partial class Player : CharacterBody2D
 		multiplayer_synchronizer = GetNode<MultiplayerSynchronizer>("MultiplayerSynchronizer");
 		multiplayer_synchronizer.SetMultiplayerAuthority(Id);
 		Gun gun = (Gun)gun_loader.Instantiate();
+		scene_manager = GetParent().GetParent().GetNode<SceneManager>("SceneManager");
 		
 		AddChild(gun);
 
@@ -91,6 +107,8 @@ public partial class Player : CharacterBody2D
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public void _physics_process(double delta)
 	{
+
+		GD.Print($"{name}:{health}");
 		// GD.Print($"{name}:{Id}:{Multiplayer.GetUniqueId()}");
 		if(multiplayer_synchronizer.GetMultiplayerAuthority() == Multiplayer.GetUniqueId())
 		{
@@ -103,5 +121,6 @@ public partial class Player : CharacterBody2D
 			
 			
 		}
+		checkHealth();
 	}
 }

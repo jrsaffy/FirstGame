@@ -11,7 +11,7 @@ public partial class Bullet : Area2D
 	Array<Area2D> overlappingAreas;
 	Array<Node2D> overlappingBodies;
 	Vector2 velocity;
-	int damage;
+	int damage = 25;
 	// AudioStreamPlayer2D gunshot_audio;
 
 
@@ -62,6 +62,11 @@ public partial class Bullet : Area2D
 		for(int i = 0; i < overlappingBodies.Count; i++)
 		{
 			Node2D body = overlappingBodies[i];
+			if(body is Player)
+			{
+				Player player = (Player)body;
+				player.health -= damage;
+			}
 			QueueFree();
 			// GD.Print("Body");
 			// GD.Print(body);
