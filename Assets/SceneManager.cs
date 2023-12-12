@@ -33,7 +33,7 @@ public partial class SceneManager : Node
 	void spawnPlayer(Player player)
 	{
 		Node SpawnPointsNode = GetNode("SpawnPoints");
-		Array<Node>SpawnPoints = SpawnPointsNode.GetChildren();
+		Array<Node> SpawnPoints = SpawnPointsNode.GetChildren();
 		//Spawn the player at the spawnpoint with the furthest distance from them dieing
 		float greatest_distance = 0;
 		GD.Print($"Spawn Points: {SpawnPoints}");
