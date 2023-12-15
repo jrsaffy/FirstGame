@@ -108,7 +108,7 @@ public partial class Player : CharacterBody2D
 	public void _physics_process(double delta)
 	{
 
-		GD.Print($"{name}:{health}");
+		
 		// GD.Print($"{name}:{Id}:{Multiplayer.GetUniqueId()}");
 		if(multiplayer_synchronizer.GetMultiplayerAuthority() == Multiplayer.GetUniqueId())
 		{

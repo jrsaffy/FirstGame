@@ -43,7 +43,7 @@ public partial class Gun : Node2D
 
 				playGunshot();
 
-				addRecoil();
+				Rpc("addRecoil");
 			
 				can_fire = false;
 
@@ -115,7 +115,7 @@ public partial class Gun : Node2D
 
 	}
 
-
+	[Rpc(MultiplayerApi.RpcMode.AnyPeer,CallLocal = true)]
 	void addRecoil()
 	{
 		if (recoil <= max_recoil)
@@ -124,7 +124,7 @@ public partial class Gun : Node2D
 		}
 	}
 
-
+	// [Rpc(MultiplayerApi.RpcMode.AnyPeer, CallLocal =true)]
 	void reduceRecoil()
 	{
 		if (recoil >= 0f)
@@ -137,6 +137,7 @@ public partial class Gun : Node2D
 		}
 	}
 
+	[Rpc(MultiplayerApi.RpcMode.AnyPeer, CallLocal =true)]
 	void addMovementRecoil()
 	{
 		if (velocity.Length() > 0 & recoil <= max_recoil)
@@ -186,7 +187,8 @@ public partial class Gun : Node2D
 			velocity = (GlobalPosition - prev_pos) / (float)delta;
 			// GD.Print(velocity);
 			prev_pos = GlobalPosition;
-			addMovementRecoil();
+			Rpc("addMovementRecoil");
+			// addMovementRecoil();
 			Reload();
 		}
 		

@@ -38,6 +38,22 @@ offset_bottom = 238.0
 scale = Vector2(5.00919, 4.11392)
 text = "    Start Game    "
 
+[node name="TextEdit" type="TextEdit" parent="."]
+layout_mode = 0
+offset_left = 102.0
+offset_top = 7.0
+offset_right = 985.0
+offset_bottom = 68.0
+
+[node name="RichTextLabel" type="Label" parent="."]
+layout_mode = 0
+offset_left = 60.0
+offset_top = 14.0
+offset_right = 76.0
+offset_bottom = 40.0
+scale = Vector2(2, 2)
+text = "IP"
+
 [connection signal="button_down" from="Host" to="." method="OnHost"]
 [connection signal="button_down" from="Join" to="." method="OnJoin"]
 [connection signal="button_down" from="StartGame" to="." method="OnStartGame"]
