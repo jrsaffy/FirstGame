@@ -14,7 +14,7 @@ public partial class SceneManager : Node
 	{
 		Node SpawnPointsNode = GetNode("SpawnPoints");
 		Array<Node>SpawnPoints = SpawnPointsNode.GetChildren();
-		GD.Print($"Spawn Points: {SpawnPoints}");
+		// GD.Print($"Spawn Points: {SpawnPoints}");
 		for(int i = 0; i < SpawnPoints.Count; i++)
 		{
 			// GD.Print(i);

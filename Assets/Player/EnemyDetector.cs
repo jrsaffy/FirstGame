@@ -9,7 +9,23 @@ public partial class EnemyDetector : Area2D
 	PackedScene detector_loader = GD.Load<PackedScene>("res://Assets/Player/detector.tscn");
 	MultiplayerSynchronizer multiplayer_synchronizer;
 
-	
+		
+		
+
+	private void _on_body_entered(Node2D body)
+	{
+		if (multiplayer_synchronizer.GetMultiplayerAuthority() == Multiplayer.GetUniqueId())
+		{
+		Player parent = (Player)this.GetParent();
+			if (body is Player player)
+			{
+				Player player_body = (Player)body;
+				
+				GD.Print($"{this}:{player_body.Id} entered");
+			}
+		}
+	}
+
 	private void _on_area_exited(Area2D area)
 	{
 	// Replace with function body.
@@ -17,30 +33,20 @@ public partial class EnemyDetector : Area2D
 	
 	private void _on_body_exited(Node2D body)
 	{
+		if (multiplayer_synchronizer.GetMultiplayerAuthority() == Multiplayer.GetUniqueId())
+		{
+		Player parent = (Player)this.GetParent();
 		
-		// Player parent = (Player)this.GetParent();
-		
-		// if (body is Player player)
-		// {
-		// 	Player player_body = (Player)body;
+			if (body is Player player)
+			{
+				Player player_body = (Player)body;
+				
+				GD.Print($"{this}:{player_body.Id} exited");
+				player.Visible = false;
 			
-		// 	// GD.Print()
-		// 	if (player.Id == GetParent<Player>().Id)
-		// 	{
-		// 		GD.Print($"if: {body}");
-		// 		parent.Visible = true;
-		// 	}
-		// 	else
-		// 	{
-		// 		GD.Print($"else: {player.Id}:{GetParent<Player>().Id}");
-
-		// 		// GD.Print(player.name);
 			
-		// 		player.Visible = false;
-		// 	}
-		
-		// }
-			
+			}
+		}
 	// Replace with function body.
 	}
 
