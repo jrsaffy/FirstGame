@@ -26,6 +26,7 @@ public partial class SceneManager : Node
 			new_player.name = player_info.Name;
 			new_player.GlobalPosition = spawnpoint.GlobalPosition;
 			new_player.Id = player_info.Id;
+			new_player.team = player_info.Team;
 			AddChild(new_player);
 		}
 	}
@@ -51,6 +52,8 @@ public partial class SceneManager : Node
 		}
 
 		player.Position = new_spawnpoint.Position;
+
+		GD.Print($"Spawning: {player.name} Team: {player.team}");
 
 	}
 

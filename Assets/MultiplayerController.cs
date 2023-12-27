@@ -29,8 +29,10 @@ public partial class MultiplayerController : Control
 	//Runs on client when connection is successful
 	public void OnConnectedToServer()
 	{
+		string team = GetNode<TextEdit>("TeamEdit").Text;
+		string name = GetNode<TextEdit>("NameEdit").Text;
 		GD.Print("Connected To Server");
-		RpcId(1, "sendPlayerInformation", "Bob", Multiplayer.GetUniqueId());
+		RpcId(1, "sendPlayerInformation", name, Multiplayer.GetUniqueId(), team);
 	}
 
 	//Runs on all peers when player disconnects
@@ -70,6 +72,9 @@ public partial class MultiplayerController : Control
 		join_ip = GetNode<TextEdit>("TextEdit").Text;
 		peer = new ENetMultiplayerPeer();
 		Error error = peer.CreateServer(port);
+		string team = GetNode<TextEdit>("TeamEdit").Text;
+		string name = GetNode<TextEdit>("NameEdit").Text;
+		
 		if (error == Error.Ok)
 		{
 			
@@ -77,7 +82,7 @@ public partial class MultiplayerController : Control
 			peer.Host.Compress(compression);
 			Multiplayer.MultiplayerPeer = peer;
 			GD.Print("Creating Server");
-			sendPlayerInformation("George", 1);
+			sendPlayerInformation(name, 1, team);
 
 		}
 			
@@ -94,6 +99,8 @@ public partial class MultiplayerController : Control
 		peer = new ENetMultiplayerPeer();
 
 		join_ip = GetNode<TextEdit>("TextEdit").Text;
+		string team = GetNode<TextEdit>("TeamEdit").Text;
+		string name = GetNode<TextEdit>("NameEdit").Text;
 
 		Error error = peer.CreateClient(join_ip, port);
 
@@ -113,11 +120,12 @@ public partial class MultiplayerController : Control
 
 	}
 	[Rpc(MultiplayerApi.RpcMode.AnyPeer)]
-	private void sendPlayerInformation(string name, int id)
+	private void sendPlayerInformation(string name, int id, string team)
 	{
 		PlayerInformation player_info = new PlayerInformation(){
 			Name = name,
-			Id = id
+			Id = id,
+			Team = team
 		};
 		if (!GameManager.GamePlayerInfo.Contains(player_info))
 		{
@@ -127,7 +135,7 @@ public partial class MultiplayerController : Control
 		{
 			foreach(PlayerInformation player in GameManager.GamePlayerInfo)
 			{
-				Rpc("sendPlayerInformation", player.Name, player.Id);
+				Rpc("sendPlayerInformation", player.Name, player.Id, player.Team);
 			}
 		}
 	}

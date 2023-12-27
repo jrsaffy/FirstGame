@@ -8,6 +8,7 @@ public partial class Player : CharacterBody2D
 	public int health = 100;
 	bool moving = false;
 	int speed = 200;
+	public string team;
 	State playerState = new State();
 	// PackedScene bullet_loader = GD.Load<PackedScene>("res://Assets/bullet.tscn");
 	PackedScene gun_loader = GD.Load<PackedScene>("res://Assets/Gun/gun.tscn");
