@@ -1,7 +1,7 @@
 using Godot;
 using Godot.Collections;
 using System;
-using System.Security.Cryptography.X509Certificates;
+// using System.Security.Cryptography.X509Certificates;
 
 public partial class EnemyDetector : Area2D
 {
@@ -10,6 +10,40 @@ public partial class EnemyDetector : Area2D
 	MultiplayerSynchronizer multiplayer_synchronizer;
 
 	
+	private void _on_area_exited(Area2D area)
+	{
+	// Replace with function body.
+	}
+	
+	private void _on_body_exited(Node2D body)
+	{
+		
+		// Player parent = (Player)this.GetParent();
+		
+		// if (body is Player player)
+		// {
+		// 	Player player_body = (Player)body;
+			
+		// 	// GD.Print()
+		// 	if (player.Id == GetParent<Player>().Id)
+		// 	{
+		// 		GD.Print($"if: {body}");
+		// 		parent.Visible = true;
+		// 	}
+		// 	else
+		// 	{
+		// 		GD.Print($"else: {player.Id}:{GetParent<Player>().Id}");
+
+		// 		// GD.Print(player.name);
+			
+		// 		player.Visible = false;
+		// 	}
+		
+		// }
+			
+	// Replace with function body.
+	}
+
 	 
 	void detectEnemies()
 	{
@@ -66,3 +100,8 @@ public partial class EnemyDetector : Area2D
 	}
 	
 }
+
+
+
+
+

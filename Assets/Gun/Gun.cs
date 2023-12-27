@@ -38,12 +38,15 @@ public partial class Gun : Node2D
 			{
 				gunStopwatch.Start();
 
+				Vector2 recoil_direction = new Vector2(-direction.Y, direction.X);
+				float recoil_magnitude = (float)(random_generator.NextDouble() * (2 * recoil) - recoil);
+
 				// createBullet(direction);
-				Rpc("createBullet", direction);
+				Rpc("createBullet", (direction+ recoil_direction * recoil_magnitude).Normalized());
 
 				playGunshot();
 
-				Rpc("addRecoil");
+				addRecoil();
 			
 				can_fire = false;
 
@@ -69,10 +72,9 @@ public partial class Gun : Node2D
 		AudioStreamPlayer2D bullet_player = (AudioStreamPlayer2D)bullet_audio_loader.Instantiate();
 		AddChild(bullet_player);
 		
-		Vector2 recoil_direction = new Vector2(-direction.Y, direction.X);
-		float recoil_magnitude = (float)(random_generator.NextDouble() * (2 * recoil) - recoil);
+		
 
-		bullet.direction = (direction + recoil_direction * recoil_magnitude).Normalized();
+		bullet.direction = direction;
 		bullet.init_position = GlobalPosition + direction * 25;
 
 		bullet.LookAt(direction * 50);
@@ -171,10 +173,10 @@ public partial class Gun : Node2D
 	
 	void _physics_process(double delta)
 	{
-		GD.Print(GetParent<Player>().name);
-		GD.Print(multiplayer_synchronizer.GetMultiplayerAuthority());
-		GD.Print(Multiplayer.GetUniqueId());
-		GD.Print("--------------------------");
+		// GD.Print(GetParent<Player>().name);
+		// GD.Print(multiplayer_synchronizer.GetMultiplayerAuthority());
+		// GD.Print(Multiplayer.GetUniqueId());
+		// GD.Print("--------------------------");
 		
 
 
