@@ -12,11 +12,21 @@ public partial class Player : CharacterBody2D
 	State playerState = new State();
 	// PackedScene bullet_loader = GD.Load<PackedScene>("res://Assets/bullet.tscn");
 	PackedScene gun_loader = GD.Load<PackedScene>("res://Assets/Gun/gun.tscn");
+	PackedScene detection_loader = GD.Load<PackedScene>("res://Assets/Player/enemy_detector.tscn");
 	bool can_fire = true;
 	Gun gun;
 	MultiplayerSynchronizer multiplayer_synchronizer;
+	
 
 	SceneManager scene_manager;
+
+	[Signal]
+	public delegate void DeadSignalEventHandler(string _team);
+
+	public void emitDead()
+	{
+		EmitSignal(SignalName.DeadSignal, team);
+	}
 
 
 	void _Move(Vector2 direction)
@@ -81,7 +91,7 @@ public partial class Player : CharacterBody2D
 		setDieAnimation();
 		scene_manager.playersToSpawn.Add(this);
 		health = 100;
-		
+		emitDead();
 	}
 
 
@@ -89,6 +99,7 @@ public partial class Player : CharacterBody2D
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
+		this.AddToGroup("Player");
 		multiplayer_synchronizer = GetNode<MultiplayerSynchronizer>("MultiplayerSynchronizer");
 		multiplayer_synchronizer.SetMultiplayerAuthority(Id);
 		Gun gun = (Gun)gun_loader.Instantiate();
@@ -99,8 +110,13 @@ public partial class Player : CharacterBody2D
 		if(!(multiplayer_synchronizer.GetMultiplayerAuthority() == Multiplayer.GetUniqueId()))
 		{
 			Visible = false;
-			GetNode<Area2D>("EnemyDetector").GetNode<PointLight2D>("PointLight2D").QueueFree();
+			// GetNode<Area2D>("EnemyDetector").GetNode<PointLight2D>("PointLight2D").QueueFree();
 			GetNode<Camera2D>("Camera2D").QueueFree();
+		}
+		else
+		{
+			EnemyDetector enemy_detector = (EnemyDetector)detection_loader.Instantiate();
+			AddChild(enemy_detector);
 		}
 		
 	}

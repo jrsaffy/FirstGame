@@ -21,7 +21,7 @@ public partial class EnemyDetector : Area2D
 			{
 				Player player_body = (Player)body;
 				
-				GD.Print($"{this}:{player_body.Id} entered");
+				// GD.Print($"{this}:{player_body.Id} entered");
 			}
 		}
 	}
@@ -41,8 +41,9 @@ public partial class EnemyDetector : Area2D
 			{
 				Player player_body = (Player)body;
 				
-				GD.Print($"{this}:{player_body.Id} exited");
+				// GD.Print($"{this}:{player_body.Id} exited");
 				player.Visible = false;
+				parent.Visible = true;
 			
 			
 			}
@@ -73,6 +74,7 @@ public partial class EnemyDetector : Area2D
 					
 					// DrawLine(GlobalPosition, player.GlobalPosition,Color.Color8(255,0,0,1));
 					var intersect = spaceState.IntersectRay(parameters);
+					// GD.Print(intersect);
 					Node2D collision = (Node2D)intersect["collider"];
 					if(collision is Player)
 					{

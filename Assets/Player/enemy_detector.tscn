@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://c3qu5mqv8r6cm"]
+
+[ext_resource type="Script" path="res://Assets/Player/EnemyDetector.cs" id="1_hb62b"]
+
+[sub_resource type="Gradient" id="Gradient_kxk6c"]
+offsets = PackedFloat32Array(0, 0.0129032, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0.922581, 0.922581, 0.922581, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_kwas6"]
+gradient = SubResource("Gradient_kxk6c")
+width = 600
+height = 600
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.807339, 0.20367)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_x838o"]
+
+[node name="EnemyDetector" type="Area2D"]
+script = ExtResource("1_hb62b")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+shadow_enabled = true
+texture = SubResource("GradientTexture2D_kwas6")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(25, 25)
+shape = SubResource("CircleShape2D_x838o")
+
+[connection signal="area_exited" from="." to="." method="_on_area_exited"]
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]

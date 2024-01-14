@@ -55,6 +55,7 @@ scale = Vector2(2, 2)
 text = "IP"
 
 [node name="TeamEdit" type="TextEdit" parent="."]
+layout_mode = 0
 offset_left = 785.0
 offset_top = 192.0
 offset_right = 1081.0
@@ -62,6 +63,7 @@ offset_bottom = 251.0
 scale = Vector2(1.2, 1)
 
 [node name="TeamLabel" type="Label" parent="."]
+layout_mode = 0
 offset_left = 777.0
 offset_top = 140.0
 offset_right = 793.0
@@ -70,6 +72,7 @@ scale = Vector2(2, 2)
 text = "Team"
 
 [node name="NameEdit" type="TextEdit" parent="."]
+layout_mode = 0
 offset_left = 783.0
 offset_top = 328.0
 offset_right = 1090.0
@@ -77,6 +80,7 @@ offset_bottom = 389.0
 scale = Vector2(1.16, 1)
 
 [node name="NameLabel" type="Label" parent="."]
+layout_mode = 0
 offset_left = 779.0
 offset_top = 280.0
 offset_right = 822.0

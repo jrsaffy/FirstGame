@@ -8,6 +8,8 @@ public partial class SceneManager : Node
 {
 	Godot.Collections.Array<Node2D> SpawnPoints;
 	private PackedScene playerLoader = GD.Load<PackedScene>("res://Assets/Player/player.tscn");
+	private PackedScene ScorebaordLoader = GD.Load<PackedScene>("res://Assets/scoreboard.tscn");
+	
 	// Called when the node enters the scene tree for the first time.
 	public List<Player> playersToSpawn = new List<Player>();
 	public override void _Ready()
@@ -15,7 +17,7 @@ public partial class SceneManager : Node
 		Node SpawnPointsNode = GetNode("SpawnPoints");
 		Array<Node>SpawnPoints = SpawnPointsNode.GetChildren();
 		// GD.Print($"Spawn Points: {SpawnPoints}");
-		for(int i = 0; i < SpawnPoints.Count; i++)
+		for(int i = 0; i < GameManager.GamePlayerInfo.Count; i++)
 		{
 			// GD.Print(i);
 			PlayerInformation player_info = GameManager.GamePlayerInfo[i];
@@ -29,6 +31,8 @@ public partial class SceneManager : Node
 			new_player.team = player_info.Team;
 			AddChild(new_player);
 		}
+		Scoreboard scoreboard = (Scoreboard)ScorebaordLoader.Instantiate();
+		AddChild(scoreboard);
 	}
 
 	void spawnPlayer(Player player)
@@ -37,7 +41,7 @@ public partial class SceneManager : Node
 		Array<Node> SpawnPoints = SpawnPointsNode.GetChildren();
 		//Spawn the player at the spawnpoint with the furthest distance from them dieing
 		float greatest_distance = 0;
-		GD.Print($"Spawn Points: {SpawnPoints}");
+		// GD.Print($"Spawn Points: {SpawnPoints}");
 		Node2D new_spawnpoint = (Node2D)SpawnPoints[0];
 		foreach(Node2D spawnpoint in SpawnPoints)
 		{
