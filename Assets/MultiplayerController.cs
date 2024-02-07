@@ -1,6 +1,8 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 using System.IO.Compression;
+using System.Linq;
 
 public partial class MultiplayerController : Control
 {
@@ -69,6 +71,7 @@ public partial class MultiplayerController : Control
 	
 	public void OnHost()
 	{
+		GD.Print("######");
 		join_ip = GetNode<TextEdit>("TextEdit").Text;
 		peer = new ENetMultiplayerPeer();
 		Error error = peer.CreateServer(port);
@@ -96,6 +99,7 @@ public partial class MultiplayerController : Control
 	
 	public void OnJoin()
 	{
+		GD.Print("###########");
 		peer = new ENetMultiplayerPeer();
 
 		join_ip = GetNode<TextEdit>("TextEdit").Text;
@@ -122,15 +126,27 @@ public partial class MultiplayerController : Control
 	[Rpc(MultiplayerApi.RpcMode.AnyPeer)]
 	private void sendPlayerInformation(string name, int id, string team)
 	{
+		GD.Print($"Sending Player Information: {Multiplayer.GetUniqueId()}");
 		PlayerInformation player_info = new PlayerInformation(){
 			Name = name,
 			Id = id,
 			Team = team
 		};
-		if (!GameManager.GamePlayerInfo.Contains(player_info))
+		GD.Print($"Attempting to add {player_info.Name}, {player_info.Id}, {player_info.Team} to GamePlayerInfo");
+		GD.Print("Players in GamePlayerInfo: ");
+		GameManager.GamePlayerInfo.ForEach(info => GD.Print($"Name: {info.Name} Id: {info.Id}, Team: {info.Team}"));
+		List<int> ids = GameManager.GamePlayerInfo.Select(info => info.Id).ToList();
+		
+		if (!ids.Contains(player_info.Id))
 		{
 			GameManager.GamePlayerInfo.Add(player_info);
+			GD.Print($"Adding {player_info.Name}");
 		}
+
+		GD.Print("Players in GamePlayerInfo After Adding: ");
+		GameManager.GamePlayerInfo.ForEach(info => GD.Print($"Name: {info.Name} Id: {info.Id}, Team: {info.Team}"));
+		GD.Print("");
+
 		if(Multiplayer.IsServer())
 		{
 			foreach(PlayerInformation player in GameManager.GamePlayerInfo)
@@ -138,6 +154,7 @@ public partial class MultiplayerController : Control
 				Rpc("sendPlayerInformation", player.Name, player.Id, player.Team);
 			}
 		}
+		
 	}
 
 

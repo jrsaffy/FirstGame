@@ -14,13 +14,19 @@ public partial class SceneManager : Node
 	public List<Player> playersToSpawn = new List<Player>();
 	public override void _Ready()
 	{
+		//Need to add team spawn points
 		Node SpawnPointsNode = GetNode("SpawnPoints");
 		Array<Node>SpawnPoints = SpawnPointsNode.GetChildren();
-		// GD.Print($"Spawn Points: {SpawnPoints}");
+
+		GD.Print("Loading and Spawining Players:");
+		GameManager.GamePlayerInfo.ForEach(playerinfo => GD.Print($"Name: {playerinfo.Name}, Id: {playerinfo.Id}"));
+		
+
 		for(int i = 0; i < GameManager.GamePlayerInfo.Count; i++)
 		{
-			// GD.Print(i);
+			
 			PlayerInformation player_info = GameManager.GamePlayerInfo[i];
+			
 			Player new_player = (Player)playerLoader.Instantiate();
 			
 			Node2D spawnpoint = (Node2D)SpawnPoints[i];
@@ -37,11 +43,12 @@ public partial class SceneManager : Node
 
 	void spawnPlayer(Player player)
 	{
+		
 		Node SpawnPointsNode = GetNode("SpawnPoints");
 		Array<Node> SpawnPoints = SpawnPointsNode.GetChildren();
 		//Spawn the player at the spawnpoint with the furthest distance from them dieing
 		float greatest_distance = 0;
-		// GD.Print($"Spawn Points: {SpawnPoints}");
+		
 		Node2D new_spawnpoint = (Node2D)SpawnPoints[0];
 		foreach(Node2D spawnpoint in SpawnPoints)
 		{
@@ -65,6 +72,9 @@ public partial class SceneManager : Node
 	{
 		if (playersToSpawn.Count > 0)
 		{
+			GD.Print("Player Added to playersToSpawn: ");
+			playersToSpawn.ForEach(player => GD.Print($"Name: {player.Name}, Id: {player.Id}"));
+
 			foreach(Player player in playersToSpawn)
 			{
 				spawnPlayer(player);

@@ -88,6 +88,7 @@ public partial class Player : CharacterBody2D
 
 	void Die()
 	{
+		GD.Print($"{this.Name} : Dieing");
 		setDieAnimation();
 		scene_manager.playersToSpawn.Add(this);
 		health = 100;
