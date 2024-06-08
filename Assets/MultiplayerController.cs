@@ -3,19 +3,24 @@ using System;
 using System.Collections.Generic;
 using System.IO.Compression;
 using System.Linq;
+using System.Runtime.InteropServices;
 
 public partial class MultiplayerController : Control
 {
 	PackedScene level_loader = GD.Load<PackedScene>("res://testScene.tscn");
+	PackedScene portForwardingLoader = GD.Load<PackedScene>("res://Assets/port_fowarder.tscn");
 	private ENetMultiplayerPeer peer;
-	private int port = 8910;
+	private int port = 15973;
 	// private string host_ip = "192.168.0.207";
 	private string host_ip;
+
+	private bool is_host = false;
 	
 	private string join_ip;
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
+
 		Multiplayer.PeerConnected += OnPeerConnected;
 		Multiplayer.PeerDisconnected += OnPeerDisconnected;
 		Multiplayer.ConnectedToServer += OnConnectedToServer;
@@ -35,6 +40,7 @@ public partial class MultiplayerController : Control
 		string name = GetNode<TextEdit>("NameEdit").Text;
 		GD.Print("Connected To Server");
 		RpcId(1, "sendPlayerInformation", name, Multiplayer.GetUniqueId(), team);
+		GameManager.GamePlayerInfo.ForEach(playerinfo => GD.Print($"Player: {Multiplayer.GetUniqueId() }, Name: {playerinfo.Name}, Id: {playerinfo.Id}"));
 	}
 
 	//Runs on all peers when player disconnects
@@ -64,13 +70,22 @@ public partial class MultiplayerController : Control
 	}
 	public void OnStartGame()
 	{
-		
-		Rpc("startGame");
+		if(is_host)
+		{
+			Rpc("startGame");
+		}
+		else
+		{
+			GD.Print("Not Host Cannot Start Game");
+		}
 		
 	}
 	
 	public void OnHost()
 	{
+		Node2D port_fowarder = (Node2D)portForwardingLoader.Instantiate();
+		GetTree().Root.AddChild(port_fowarder);
+		is_host = true;
 		GD.Print("######");
 		join_ip = GetNode<TextEdit>("TextEdit").Text;
 		peer = new ENetMultiplayerPeer();
@@ -113,11 +128,9 @@ public partial class MultiplayerController : Control
 			ENetConnection.CompressionMode compression = ENetConnection.CompressionMode.RangeCoder;
 			peer.Host.Compress(compression);
 			Multiplayer.MultiplayerPeer = peer;
-
 		}
 		else
 		{
-			
 			GD.Print($"Failed to Join Game: {error}");
 			return;
 		}
@@ -132,20 +145,20 @@ public partial class MultiplayerController : Control
 			Id = id,
 			Team = team
 		};
-		GD.Print($"Attempting to add {player_info.Name}, {player_info.Id}, {player_info.Team} to GamePlayerInfo");
-		GD.Print("Players in GamePlayerInfo: ");
-		GameManager.GamePlayerInfo.ForEach(info => GD.Print($"Name: {info.Name} Id: {info.Id}, Team: {info.Team}"));
+		// GD.Print($"Attempting to add {player_info.Name}, {player_info.Id}, {player_info.Team} to GamePlayerInfo");
+		// GD.Print("Players in GamePlayerInfo: ");
+		// GameManager.GamePlayerInfo.ForEach(info => GD.Print($"Name: {info.Name} Id: {info.Id}, Team: {info.Team}"));
 		List<int> ids = GameManager.GamePlayerInfo.Select(info => info.Id).ToList();
 		
 		if (!ids.Contains(player_info.Id))
 		{
 			GameManager.GamePlayerInfo.Add(player_info);
-			GD.Print($"Adding {player_info.Name}");
+			// GD.Print($"Adding {player_info.Name}");
 		}
 
-		GD.Print("Players in GamePlayerInfo After Adding: ");
-		GameManager.GamePlayerInfo.ForEach(info => GD.Print($"Name: {info.Name} Id: {info.Id}, Team: {info.Team}"));
-		GD.Print("");
+		// GD.Print("Players in GamePlayerInfo After Adding: ");
+		// GameManager.GamePlayerInfo.ForEach(info => GD.Print($"Name: {info.Name} Id: {info.Id}, Team: {info.Team}"));
+		// GD.Print("");
 
 		if(Multiplayer.IsServer())
 		{

@@ -1,0 +1,44 @@
+[gd_scene load_steps=5 format=3 uid="uid://5igbprfv3ud7"]
+
+[ext_resource type="Texture2D" uid="uid://fykhxe0cmhsd" path="res://Assets/Sprites/craftpix-000123-tds-modern-pixel-game-kit/tds-modern-gui-pixel-art/PNG/Loading Screen/Background.png" id="1_bmr6w"]
+[ext_resource type="Script" path="res://Assets/Menus/MainMenu.cs" id="1_ta6rg"]
+[ext_resource type="Texture2D" uid="uid://bflktluow0wim" path="res://Assets/Sprites/craftpix-000123-tds-modern-pixel-game-kit/tds-modern-gui-pixel-art/PNG/Main menu/BTNHost.png" id="2_6h2i2"]
+[ext_resource type="Texture2D" uid="uid://b3fliuexmsvfq" path="res://Assets/Sprites/craftpix-000123-tds-modern-pixel-game-kit/tds-modern-gui-pixel-art/PNG/Main menu/BTNJoin.png" id="3_tb3c7"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -511.0
+offset_bottom = -290.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ta6rg")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 641.0
+offset_bottom = 360.0
+scale = Vector2(1.79759, 1.7983)
+texture = ExtResource("1_bmr6w")
+
+[node name="HostButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 472.0
+offset_top = 268.0
+offset_right = 680.0
+offset_bottom = 324.0
+icon = ExtResource("2_6h2i2")
+clip_text = true
+
+[node name="JoinButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 472.0
+offset_top = 386.0
+offset_right = 680.0
+offset_bottom = 442.0
+icon = ExtResource("3_tb3c7")
+
+[connection signal="button_down" from="HostButton" to="." method="OnHost"]
+[connection signal="button_down" from="JoinButton" to="." method="OnJoin"]

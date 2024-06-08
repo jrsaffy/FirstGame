@@ -1,0 +1,85 @@
+[gd_scene load_steps=6 format=3 uid="uid://do7ulpqms0ysg"]
+
+[ext_resource type="Script" path="res://Assets/Menus/GameMenu.cs" id="1_5eu7y"]
+[ext_resource type="Texture2D" uid="uid://fykhxe0cmhsd" path="res://Assets/Sprites/craftpix-000123-tds-modern-pixel-game-kit/tds-modern-gui-pixel-art/PNG/Loading Screen/Background.png" id="1_bwftv"]
+[ext_resource type="Texture2D" uid="uid://bv5bkdqlm0gbn" path="res://Assets/Sprites/craftpix-000123-tds-modern-pixel-game-kit/tds-modern-gui-pixel-art/PNG/Main menu/BTN PLAY.png" id="2_m2nuv"]
+[ext_resource type="Texture2D" uid="uid://b3fliuexmsvfq" path="res://Assets/Sprites/craftpix-000123-tds-modern-pixel-game-kit/tds-modern-gui-pixel-art/PNG/Main menu/BTNJoin.png" id="3_2w7c1"]
+[ext_resource type="Texture2D" uid="uid://hcdxfs2pw0vb" path="res://Assets/Sprites/craftpix-000123-tds-modern-pixel-game-kit/tds-modern-gui-pixel-art/PNG/Bonus/Bonus 03.png" id="3_dgsyy"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -511.0
+offset_bottom = -290.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_5eu7y")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 641.0
+offset_bottom = 360.0
+scale = Vector2(1.79759, 1.7983)
+texture = ExtResource("1_bwftv")
+
+[node name="PlayButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 134.0
+offset_top = 132.0
+offset_right = 342.0
+offset_bottom = 188.0
+icon = ExtResource("2_m2nuv")
+
+[node name="Team1List" type="Node2D" parent="."]
+position = Vector2(596, 27)
+
+[node name="Background" type="TextureRect" parent="Team1List"]
+offset_left = 2.0
+offset_top = 52.0
+offset_right = 395.0
+offset_bottom = 288.0
+texture = ExtResource("3_dgsyy")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Team1List"]
+offset_left = 32.0
+offset_top = 74.0
+offset_right = 364.0
+offset_bottom = 244.0
+
+[node name="Team2List" type="Node2D" parent="."]
+position = Vector2(600, 308)
+
+[node name="Background" type="TextureRect" parent="Team2List"]
+offset_left = -3.0
+offset_top = 89.0
+offset_right = 390.0
+offset_bottom = 325.0
+texture = ExtResource("3_dgsyy")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Team2List"]
+offset_left = 32.0
+offset_top = 114.0
+offset_right = 363.0
+offset_bottom = 282.0
+
+[node name="JoinTeam1" type="Button" parent="."]
+layout_mode = 0
+offset_left = 599.0
+offset_top = 31.0
+offset_right = 804.0
+offset_bottom = 83.0
+icon = ExtResource("3_2w7c1")
+
+[node name="JoinTeam2" type="Button" parent="."]
+layout_mode = 0
+offset_left = 599.0
+offset_top = 350.0
+offset_right = 804.0
+offset_bottom = 402.0
+icon = ExtResource("3_2w7c1")
+
+[connection signal="button_down" from="PlayButton" to="." method="onStartGame"]
+[connection signal="button_down" from="JoinTeam1" to="." method="joinTeam1"]
+[connection signal="button_down" from="JoinTeam2" to="." method="joinTeam2"]

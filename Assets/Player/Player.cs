@@ -101,8 +101,19 @@ public partial class Player : CharacterBody2D
 	public override void _Ready()
 	{
 		this.AddToGroup("Player");
-		multiplayer_synchronizer = GetNode<MultiplayerSynchronizer>("MultiplayerSynchronizer");
-		multiplayer_synchronizer.SetMultiplayerAuthority(Id);
+		try{
+			
+			multiplayer_synchronizer = GetNode<MultiplayerSynchronizer>("MultiplayerSynchronizer");
+			GD.Print($"{name}: {multiplayer_synchronizer}");
+			multiplayer_synchronizer.SetMultiplayerAuthority(Id);
+			GD.Print($"{name} Able to load multiplayer Synchronizer");
+		}
+		catch(Exception e)
+		{
+			GD.Print($"{name} Unable to load multiplayer synchronizer: {e}");
+		}
+		
+		GD.Print("Player Ready, loading gun");
 		Gun gun = (Gun)gun_loader.Instantiate();
 		scene_manager = GetParent().GetParent().GetNode<SceneManager>("SceneManager");
 		
@@ -126,7 +137,7 @@ public partial class Player : CharacterBody2D
 	public void _physics_process(double delta)
 	{
 
-		
+		// GD.Print(multiplayer_synchronizer);
 		// GD.Print($"{name}:{Id}:{Multiplayer.GetUniqueId()}");
 		if(multiplayer_synchronizer.GetMultiplayerAuthority() == Multiplayer.GetUniqueId())
 		{

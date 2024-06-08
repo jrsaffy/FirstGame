@@ -75,14 +75,17 @@ public partial class EnemyDetector : Area2D
 					// DrawLine(GlobalPosition, player.GlobalPosition,Color.Color8(255,0,0,1));
 					var intersect = spaceState.IntersectRay(parameters);
 					// GD.Print(intersect);
-					Node2D collision = (Node2D)intersect["collider"];
-					if(collision is Player)
+					if(intersect.ContainsKey("collider"))
 					{
-						player.Visible = true;
-					}
-					else
-					{
-						player.Visible = false;
+						Node2D collision = (Node2D)intersect["collider"];
+						if(collision is Player)
+						{
+							player.Visible = true;
+						}
+						else
+						{
+							player.Visible = false;
+						}
 					}
 				}
 

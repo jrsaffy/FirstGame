@@ -14,12 +14,14 @@ public partial class SceneManager : Node
 	public List<Player> playersToSpawn = new List<Player>();
 	public override void _Ready()
 	{
+		// GD.Print($"Scene Manager Loaded: {Multiplayer.GetUniqueId()}");
+		// GD.Print($"You'd have seen an error in the first statement but if not here's the multiplayer: {Multiplayer}");
 		//Need to add team spawn points
 		Node SpawnPointsNode = GetNode("SpawnPoints");
 		Array<Node>SpawnPoints = SpawnPointsNode.GetChildren();
 
 		GD.Print("Loading and Spawining Players:");
-		GameManager.GamePlayerInfo.ForEach(playerinfo => GD.Print($"Name: {playerinfo.Name}, Id: {playerinfo.Id}"));
+		GameManager.GamePlayerInfo.ForEach(playerinfo => GD.Print($"Player: {Multiplayer.GetUniqueId() }, Name: {playerinfo.Name}, Id: {playerinfo.Id}"));
 		
 
 		for(int i = 0; i < GameManager.GamePlayerInfo.Count; i++)
@@ -35,6 +37,7 @@ public partial class SceneManager : Node
 			new_player.GlobalPosition = spawnpoint.GlobalPosition;
 			new_player.Id = player_info.Id;
 			new_player.team = player_info.Team;
+			new_player.Name = $"{player_info.Name}_{player_info.Id}";
 			AddChild(new_player);
 		}
 		Scoreboard scoreboard = (Scoreboard)ScorebaordLoader.Instantiate();
@@ -78,8 +81,8 @@ public partial class SceneManager : Node
 			foreach(Player player in playersToSpawn)
 			{
 				spawnPlayer(player);
-				playersToSpawn.Remove(player);
 			}
+			playersToSpawn.Clear();
 		}
 	}
 
