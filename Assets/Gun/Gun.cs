@@ -7,31 +7,32 @@ public partial class Gun : Node2D
 	int player_id;
 	public float firerateRoundsPerSecond = 15f;
 	public int damage = 30;
-	int max_ammo = 25;
-	int ammo = 0;
+	public int max_ammo = 25;
+	public int ammo = 0;
 	bool can_fire = true;
 	System.Diagnostics.Stopwatch gunStopwatch = new System.Diagnostics.Stopwatch();
 	System.Diagnostics.Stopwatch reloadStopwatch = new System.Diagnostics.Stopwatch();
 	PackedScene bullet_loader = GD.Load<PackedScene>("res://Assets/Gun/bullet.tscn");
 	PackedScene bullet_audio_loader = GD.Load<PackedScene>("res://Assets/Gun/bullet_player.tscn");
+	
 	float recoil = 0f;
 	float max_recoil = .3f;
-	float recoil_per_shot = .05f;
+	float recoil_per_shot = .1f;
 	float recoil_from_movement = .01f;
+	float recoil_decay = .02f;
+	
 	Random random_generator = new Random();
 	float reload_time = 1000f;
 	bool reloading = false;
 	
 	Random random = new Random();
-
 	AudioStreamPlayer2D reload_audio_player;
+	
 	Vector2 prev_pos;
 	Vector2 velocity;
 
 	MultiplayerSynchronizer multiplayer_synchronizer;
-
-	float recoil_decay = .02f;
-
+	public Player holder;
 
 
 	public void Shoot(Vector2 direction)
@@ -70,7 +71,7 @@ public partial class Gun : Node2D
 	void createBullet(Vector2 direction)
 	{
 		Bullet bullet = (Bullet)bullet_loader.Instantiate();
-
+		bullet.shooter = this.holder;
 		AudioStreamPlayer2D bullet_player = (AudioStreamPlayer2D)bullet_audio_loader.Instantiate();
 		AddChild(bullet_player);
 		

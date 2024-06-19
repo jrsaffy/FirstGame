@@ -16,16 +16,20 @@ public partial class Player : CharacterBody2D
 	bool can_fire = true;
 	Gun gun;
 	MultiplayerSynchronizer multiplayer_synchronizer;
+	public Player last_player_to_damage;
+	bool dying = false;
+
+	public int kills = 0;
+	public int deaths = 0;
 	
 
 	SceneManager scene_manager;
 
 	[Signal]
-	public delegate void DeadSignalEventHandler(string _team);
-
+	public delegate void DeadSignalEventHandler(Player victim, Player killer);
 	public void emitDead()
 	{
-		EmitSignal(SignalName.DeadSignal, team);
+		EmitSignal(SignalName.DeadSignal, this, last_player_to_damage);
 	}
 
 
@@ -88,10 +92,12 @@ public partial class Player : CharacterBody2D
 
 	void Die()
 	{
-		GD.Print($"{this.Name} : Dieing");
+		speed = 0;
+		GD.Print($"{last_player_to_damage.name} killed {this.name}");
 		setDieAnimation();
 		scene_manager.playersToSpawn.Add(this);
 		health = 100;
+		// gun.ammo = gun.max_ammo;
 		emitDead();
 	}
 
@@ -115,6 +121,7 @@ public partial class Player : CharacterBody2D
 		
 		GD.Print("Player Ready, loading gun");
 		Gun gun = (Gun)gun_loader.Instantiate();
+		gun.holder = this;
 		scene_manager = GetParent().GetParent().GetNode<SceneManager>("SceneManager");
 		
 		AddChild(gun);
