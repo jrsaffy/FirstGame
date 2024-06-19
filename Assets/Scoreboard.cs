@@ -31,21 +31,39 @@ public partial class Scoreboard : CanvasLayer
 
 	void OnPlayerDeath(Player victim, Player killer)
 	{
-		GD.Print("Signal Recieved");
-		if(killer.team == "1")
+		// GD.Print("Signal Recieved");
+		if (victim.team != killer.team)
 		{
-			Team1Score += 1;
-		}
-		if(killer.team == "2")
-		{
-			Team2Score += 1;
-		}
+			if(killer.team == "1")
+			{
+				Team1Score += 1;
+			}
+			if(killer.team == "2")
+			{
+				Team2Score += 1;
+			}
 
-		killer.kills += 1;
+			killer.kills += 1;
+			
+
+			GD.Print($"Team 1: {Team1Score}");
+			GD.Print($"Team 2: {Team2Score}");
+		}
+		else
+		{
+			if(killer.team == "1")
+			{
+				Team1Score += -1;
+			}
+			if(killer.team == "2")
+			{
+				Team2Score += -1;
+			}
+			killer.kills += -1;
+
+		}
 		victim.deaths += 1;
-
-		GD.Print($"Team 1: {Team1Score}");
-		GD.Print($"Team 2: {Team2Score}");
+		
 	}
 
 

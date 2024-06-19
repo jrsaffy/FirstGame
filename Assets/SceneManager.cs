@@ -3,6 +3,7 @@ using System;
 using Godot.Collections;
 using System.Data.Common;
 using System.Collections.Generic;
+using System.Linq;
 
 public partial class SceneManager : Node
 {
@@ -23,6 +24,8 @@ public partial class SceneManager : Node
 		GD.Print("Loading and Spawining Players:");
 		GameManager.GamePlayerInfo.ForEach(playerinfo => GD.Print($"Player: {Multiplayer.GetUniqueId() }, Name: {playerinfo.Name}, Id: {playerinfo.Id}"));
 		
+		int local_id = Multiplayer.GetUniqueId();
+		PlayerInformation local_player_info = GameManager.GamePlayerInfo.FirstOrDefault(p => (p.Id == local_id));
 
 		for(int i = 0; i < GameManager.GamePlayerInfo.Count; i++)
 		{
@@ -38,12 +41,31 @@ public partial class SceneManager : Node
 			new_player.Id = player_info.Id;
 			new_player.team = player_info.Team;
 			new_player.Name = $"{player_info.Name}_{player_info.Id}";
+			setPlayerTeamColor(new_player, local_player_info);
 			AddChild(new_player);
 		}
 		Scoreboard scoreboard = (Scoreboard)ScorebaordLoader.Instantiate();
 		AddChild(scoreboard);
 	}
 
+	void setPlayerTeamColor(Player player, PlayerInformation local_player_info)
+	{
+		int multiplayer_id = Multiplayer.GetUniqueId();
+		Sprite2D team_indicator = player.GetNode<Sprite2D>("TeamIndicator");
+		if (player.Id == multiplayer_id)
+		{
+			team_indicator.Modulate = new Color(0, 0, 255, .5f);
+		}
+		else if(player.team == local_player_info.Team)
+		{
+			team_indicator.Modulate = new Color(0, 255, 0, .5f);
+		}
+		else if(player.team != local_player_info.Team)
+		{
+			team_indicator.Modulate = new Color(255, 0, 0, .5f);
+		}
+
+	}
 	void spawnPlayer(Player player)
 	{
 		
